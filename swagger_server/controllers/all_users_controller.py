@@ -1,8 +1,7 @@
 import connexion
 
-from swagger_server.models.request_signin import RequestSignin  # noqa: E501
-from swagger_server.models.response_signin import ResponseSignin  # noqa: E501
-from swagger_server.models.db.user_model import User
+from swagger_server.models.request_all_users import RequestAllUsers  # noqa: E501
+from swagger_server.models.response_all_users import ResponseAllUsers  # noqa: E501
 from swagger_server.models.user_data import UserData
 
 from flask.views import MethodView
@@ -11,10 +10,11 @@ from timeit import default_timer
 
 from swagger_server.utils.transactions.transaction import generate_internal_transaction_id
 from swagger_server.utils.logs.logging import log as logging
-from swagger_server.utils.encrypt import encrypt_password
+
+from swagger_server.models.db.user_model import User
 
 
-class SigninView(MethodView):
+class AllUsersView(MethodView):
 
     def __init__(self):
         self.log = logging()
@@ -22,27 +22,27 @@ class SigninView(MethodView):
         self.msg_log_time = 'ITID: %r - ETID: %r - Funcion: %r - Paquete : %r - Mensaje: Fin de la transacción, procesada en : %r milisegundos'
 
 
-    def signin(self):  # noqa: E501
-        """Inicio de sesion de usuarios
+    def all_users(self):  # noqa: E501
+        """Obtener todos los usuarios
 
-        Inicio de sesion de usuarios # noqa: E501
+        Obtener todos los usuarios # noqa: E501
 
         :param body: 
         :type body: dict | bytes
 
-        :rtype: ResponseSignin
+        :rtype: ResponseCheckUser
         """
         start_time = default_timer()
         response = ""
         internal_transaction_id = str(generate_internal_transaction_id())
-        function_name = "signin"
+        function_name = "all_users"
         package_name = __name__
         log = self.log
 
         if connexion.request.is_json:
 
-            body = RequestSignin.from_dict(connexion.request.get_json())  # noqa: E501
-
+            body = RequestAllUsers.from_dict(connexion.request.get_json())
+            
             external_transaction_id = body.external_transaction_id
             message = f"start request: {function_name}"
             log.info(
@@ -50,51 +50,52 @@ class SigninView(MethodView):
                 internal_transaction_id, external_transaction_id, function_name, package_name, message)
             
             try:
-                request = body.data.to_dict()
 
-                code_email = request.get('code_email')
-                password = encrypt_password(request.get('password'))
+                # Realizar la consulta a la base de datos usando la instancia de SQLAlchemy
+                user = User.query.all()
+                
+                # Verificar si se encontró el usuario en la base de datos
+                if user:
 
-                user = User.query.filter_by(code_email=code_email).first()
+                    data = [UserData(u.to_json()) for u in user]
 
-                if user.password == password:
-
-                    data = UserData(user.to_json())
-
-                    response = ResponseSignin(
+                    # Creemos el objeto ResponseCheckUser con los datos del usuario en la sección 'data'
+                    response = ResponseAllUsers(
                         code="200",
-                        message="Inicio de sesión exitoso.",
+                        message="Datos obtenidos exitosamente",
                         data=data,
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
 
                 else:
-                    response = ResponseSignin(
-                    code=-1,
-                    message="Contraseña incorrecta.",
-                    data= [],
-                    internal_transaction_id=internal_transaction_id,
-                    external_transaction_id=external_transaction_id
-                )
-
+                    # Usuario no encontrado, creemos un objeto ResponseCheckUser con el mensaje de usuario no encontrado y sin datos
+                    response = ResponseAllUsers(
+                        code="404",
+                        message=message,
+                        data=[],
+                        internal_transaction_id=internal_transaction_id,
+                        external_transaction_id=external_transaction_id
+                    )
+                    
             except Exception as ex:
 
+                # En caso de error, creemos un objeto ResponseCheckUser con un mensaje de error genérico y sin datos
                 message = str(ex)
                 log = logging()
                 log.critical(
                     self.msg_log,
                     internal_transaction_id, external_transaction_id, function_name, package_name, message)
 
-                response = ResponseSignin(
+                response = ResponseAllUsers(
                     code=-1,
                     message=message,
                     data= [],
                     internal_transaction_id=internal_transaction_id,
                     external_transaction_id=external_transaction_id
                 )
-            
-            finally:
+                
+            finally: 
 
                 end_time = default_timer()
                 message = f"end request: {function_name} - Procesada en : {round((end_time - start_time) * 1000)} milisegundos "
@@ -102,5 +103,5 @@ class SigninView(MethodView):
                 log.info(
                     self.msg_log,
                     internal_transaction_id, external_transaction_id, function_name, package_name, message)
-                
+
         return response

@@ -60,7 +60,7 @@ class CheckUserView(MethodView):
                 # Verificar si se encontró el usuario en la base de datos
                 if user:
 
-                    data = CheckUserData(code_email=user.code_email, profile=user.profile, status=user.status)
+                    data = CheckUserData(code_email=user.code_email, profile=user.profile, status=user.status, name=user.name)
 
                     # Creemos el objeto ResponseCheckUser con los datos del usuario en la sección 'data'
                     response = ResponseCheckUser(

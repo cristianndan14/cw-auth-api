@@ -14,25 +14,70 @@ class UserData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code_email: str=None, password: str=None):  # noqa: E501
+    def __init__(self, code_email: str=None, profile: str=None, name: str=None, phone: str=None, email: str=None, city: str=None, status: str=None, role_id: int=None, leader: int=None, sales_channel: str=None, id_goal: int=None):  # noqa: E501
         """UserData - a model defined in Swagger
 
         :param code_email: The code_email of this UserData.  # noqa: E501
         :type code_email: str
-        :param password: The password of this UserData.  # noqa: E501
-        :type password: str
+        :param profile: The profile of this UserData.  # noqa: E501
+        :type profile: str
+        :param name: The name of this UserData.  # noqa: E501
+        :type name: str
+        :param phone: The phone of this UserData.  # noqa: E501
+        :type phone: str
+        :param email: The email of this UserData.  # noqa: E501
+        :type email: str
+        :param city: The city of this UserData.  # noqa: E501
+        :type city: str
+        :param status: The status of this UserData.  # noqa: E501
+        :type status: str
+        :param role_id: The role_id of this UserData.  # noqa: E501
+        :type role_id: int
+        :param leader: The leader of this UserData.  # noqa: E501
+        :type leader: int
+        :param sales_channel: The sales_channel of this UserData.  # noqa: E501
+        :type sales_channel: str
+        :param id_goal: The id_goal of this UserData.  # noqa: E501
+        :type id_goal: int
         """
         self.swagger_types = {
             'code_email': str,
-            'password': str
+            'profile': str,
+            'name': str,
+            'phone': str,
+            'email': str,
+            'city': str,
+            'status': str,
+            'role_id': int,
+            'leader': int,
+            'sales_channel': str,
+            'id_goal': int
         }
 
         self.attribute_map = {
             'code_email': 'code_email',
-            'password': 'password'
+            'profile': 'profile',
+            'name': 'name',
+            'phone': 'phone',
+            'email': 'email',
+            'city': 'city',
+            'status': 'status',
+            'role_id': 'role_id',
+            'leader': 'leader',
+            'sales_channel': 'sales_channel',
+            'id_goal': 'id_goal'
         }
         self._code_email = code_email
-        self._password = password
+        self._profile = profile
+        self._name = name
+        self._phone = phone
+        self._email = email
+        self._city = city
+        self._status = status
+        self._role_id = role_id
+        self._leader = leader
+        self._sales_channel = sales_channel
+        self._id_goal = id_goal
 
     @classmethod
     def from_dict(cls, dikt) -> 'UserData':
@@ -67,22 +112,211 @@ class UserData(Model):
         self._code_email = code_email
 
     @property
-    def password(self) -> str:
-        """Gets the password of this UserData.
+    def profile(self) -> str:
+        """Gets the profile of this UserData.
 
 
-        :return: The password of this UserData.
+        :return: The profile of this UserData.
         :rtype: str
         """
-        return self._password
+        return self._profile
 
-    @password.setter
-    def password(self, password: str):
-        """Sets the password of this UserData.
+    @profile.setter
+    def profile(self, profile: str):
+        """Sets the profile of this UserData.
 
 
-        :param password: The password of this UserData.
-        :type password: str
+        :param profile: The profile of this UserData.
+        :type profile: str
         """
 
-        self._password = password
+        self._profile = profile
+
+    @property
+    def name(self) -> str:
+        """Gets the name of this UserData.
+
+
+        :return: The name of this UserData.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        """Sets the name of this UserData.
+
+
+        :param name: The name of this UserData.
+        :type name: str
+        """
+
+        self._name = name
+
+    @property
+    def phone(self) -> str:
+        """Gets the phone of this UserData.
+
+
+        :return: The phone of this UserData.
+        :rtype: str
+        """
+        return self._phone
+
+    @phone.setter
+    def phone(self, phone: str):
+        """Sets the phone of this UserData.
+
+
+        :param phone: The phone of this UserData.
+        :type phone: str
+        """
+
+        self._phone = phone
+
+    @property
+    def email(self) -> str:
+        """Gets the email of this UserData.
+
+
+        :return: The email of this UserData.
+        :rtype: str
+        """
+        return self._email
+
+    @email.setter
+    def email(self, email: str):
+        """Sets the email of this UserData.
+
+
+        :param email: The email of this UserData.
+        :type email: str
+        """
+
+        self._email = email
+
+    @property
+    def city(self) -> str:
+        """Gets the city of this UserData.
+
+
+        :return: The city of this UserData.
+        :rtype: str
+        """
+        return self._city
+
+    @city.setter
+    def city(self, city: str):
+        """Sets the city of this UserData.
+
+
+        :param city: The city of this UserData.
+        :type city: str
+        """
+
+        self._city = city
+
+    @property
+    def status(self) -> str:
+        """Gets the status of this UserData.
+
+
+        :return: The status of this UserData.
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status: str):
+        """Sets the status of this UserData.
+
+
+        :param status: The status of this UserData.
+        :type status: str
+        """
+
+        self._status = status
+
+    @property
+    def role_id(self) -> int:
+        """Gets the role_id of this UserData.
+
+
+        :return: The role_id of this UserData.
+        :rtype: int
+        """
+        return self._role_id
+
+    @role_id.setter
+    def role_id(self, role_id: int):
+        """Sets the role_id of this UserData.
+
+
+        :param role_id: The role_id of this UserData.
+        :type role_id: int
+        """
+
+        self._role_id = role_id
+
+    @property
+    def leader(self) -> int:
+        """Gets the leader of this UserData.
+
+
+        :return: The leader of this UserData.
+        :rtype: int
+        """
+        return self._leader
+
+    @leader.setter
+    def leader(self, leader: int):
+        """Sets the leader of this UserData.
+
+
+        :param leader: The leader of this UserData.
+        :type leader: int
+        """
+
+        self._leader = leader
+
+    @property
+    def sales_channel(self) -> str:
+        """Gets the sales_channel of this UserData.
+
+
+        :return: The sales_channel of this UserData.
+        :rtype: str
+        """
+        return self._sales_channel
+
+    @sales_channel.setter
+    def sales_channel(self, sales_channel: str):
+        """Sets the sales_channel of this UserData.
+
+
+        :param sales_channel: The sales_channel of this UserData.
+        :type sales_channel: str
+        """
+
+        self._sales_channel = sales_channel
+
+    @property
+    def id_goal(self) -> int:
+        """Gets the id_goal of this UserData.
+
+
+        :return: The id_goal of this UserData.
+        :rtype: int
+        """
+        return self._id_goal
+
+    @id_goal.setter
+    def id_goal(self, id_goal: int):
+        """Sets the id_goal of this UserData.
+
+
+        :param id_goal: The id_goal of this UserData.
+        :type id_goal: int
+        """
+
+        self._id_goal = id_goal

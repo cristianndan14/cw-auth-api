@@ -31,7 +31,7 @@ class RegisterUserByAdminData(Model):
         :type city: str
         :param status: The status of this RegisterUserByAdminData.  # noqa: E501
         :type status: str
-        :param role_id: The role of this RegisterUserByAdminData.  # noqa: E501
+        :param role_id: The role_id of this RegisterUserByAdminData.  # noqa: E501
         :type role_id: int
         """
         self.swagger_types = {
@@ -62,7 +62,7 @@ class RegisterUserByAdminData(Model):
         self._email = email
         self._city = city
         self._status = status
-        self.role_id = role_id
+        self._role_id = role_id
 
     @classmethod
     def from_dict(cls, dikt) -> 'RegisterUserByAdminData':

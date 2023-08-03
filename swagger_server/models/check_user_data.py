@@ -14,7 +14,7 @@ class CheckUserData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code_email: str=None, profile: str=None, status: str=None):  # noqa: E501
+    def __init__(self, code_email: str=None, profile: str=None, status: str=None, name: str=None):  # noqa: E501
         """CheckUserData - a model defined in Swagger
 
         :param code_email: The code_email of this CheckUserData.  # noqa: E501
@@ -23,21 +23,26 @@ class CheckUserData(Model):
         :type profile: str
         :param status: The status of this CheckUserData.  # noqa: E501
         :type status: str
+        :param name: The name of this CheckUserData.  # noqa: E501
+        :type name: str
         """
         self.swagger_types = {
             'code_email': str,
             'profile': str,
-            'status': str
+            'status': str,
+            'name': str
         }
 
         self.attribute_map = {
             'code_email': 'code_email',
             'profile': 'profile',
-            'status': 'status'
+            'status': 'status',
+            'name': 'name'
         }
         self._code_email = code_email
         self._profile = profile
         self._status = status
+        self._name = name
 
     @classmethod
     def from_dict(cls, dikt) -> 'CheckUserData':
@@ -112,3 +117,24 @@ class CheckUserData(Model):
         """
 
         self._status = status
+
+    @property
+    def name(self) -> str:
+        """Gets the name of this CheckUserData.
+
+
+        :return: The name of this CheckUserData.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        """Sets the name of this CheckUserData.
+
+
+        :param name: The name of this CheckUserData.
+        :type name: str
+        """
+
+        self._name = name
