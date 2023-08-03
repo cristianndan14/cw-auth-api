@@ -88,6 +88,8 @@ class RegisterUserView(MethodView):
                         external_transaction_id=external_transaction_id
                     )
 
+                    return response, 400
+
             except Exception as ex:
 
                 message = str(ex)

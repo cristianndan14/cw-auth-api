@@ -81,6 +81,9 @@ class ResetPasswordView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
+
+                    return response, 400
+                
             except Exception as ex:
 
                 message = str(ex)

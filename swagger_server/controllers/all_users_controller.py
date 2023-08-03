@@ -78,6 +78,8 @@ class AllUsersView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
+
+                    return response, 404
                     
             except Exception as ex:
 

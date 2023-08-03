@@ -72,7 +72,6 @@ class SigninView(MethodView):
                         sales_channel=user.sales_channel,
                         id_goal=user.id_goal
                     )
-                    print(data)
 
                     response = ResponseSignin(
                         code="200",
@@ -84,13 +83,14 @@ class SigninView(MethodView):
 
                 else:
                     response = ResponseSignin(
-                    code=-1,
+                    code="400",
                     message="Contraseña incorrecta.",
                     data= [],
                     internal_transaction_id=internal_transaction_id,
                     external_transaction_id=external_transaction_id
                 )
-
+                    return response, 400
+                
             except Exception as ex:
 
                 message = str(ex)

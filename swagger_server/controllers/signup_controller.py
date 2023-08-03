@@ -87,7 +87,7 @@ class SignupView(MethodView):
                         external_transaction_id=external_transaction_id
                     )
 
-                    return response
+                    return response, 400
 
                 if re.match(patron, request.get('password')) and response_api.get("code") == 200:
 
@@ -125,6 +125,8 @@ class SignupView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
+
+                    return response, 400
 
             except Exception as ex:
 

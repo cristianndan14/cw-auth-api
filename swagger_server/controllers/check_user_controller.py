@@ -81,6 +81,8 @@ class CheckUserView(MethodView):
                         external_transaction_id=external_transaction_id
                     )
                     
+                    return response, 404
+                    
             except Exception as ex:
 
                 # En caso de error, creemos un objeto ResponseCheckUser con un mensaje de error genérico y sin datos

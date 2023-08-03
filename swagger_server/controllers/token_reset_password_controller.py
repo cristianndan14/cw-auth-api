@@ -66,6 +66,8 @@ class TokenResetPasswordView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
+
+                    return response, 404
                 
                 if user.token_reset_password is None:
                     token_password = secrets.token_hex(8)
