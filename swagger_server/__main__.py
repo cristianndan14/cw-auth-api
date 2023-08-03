@@ -16,7 +16,7 @@ def main():
                 resolver=MethodViewResolver("swagger_server.controllers"))
     app.app.config["SQLALCHEMY_DATABASE_URI"] = config.get("SQLALCHEMY_DATABASE_URI")
     db.init_app(app.app)
-    app.run(port=5002, debug=True)
+    app.run(host="0.0.0.0", port=5002, debug=True)
 
 
 
