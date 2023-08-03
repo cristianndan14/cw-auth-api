@@ -106,7 +106,7 @@ class TokenResetPasswordView(MethodView):
                 
                 else: """
                     
-                data = ResponseResetPasswordData(code_email=user.token_reset_password)
+                data = {"token_reset_password": user.token_reset_password}
 
                 response = ResponseTokenResetPassword(
                     code="200",

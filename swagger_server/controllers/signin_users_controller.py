@@ -59,7 +59,20 @@ class SigninView(MethodView):
 
                 if user.password == password:
 
-                    data = UserData(user.to_json())
+                    data = UserData(
+                        code_email=user.code_email,
+                        profile=user.profile,
+                        name=user.name,
+                        phone=user.phone,
+                        email=user.email,
+                        city=user.city,
+                        status=user.status,
+                        role_id=user.role_id,
+                        leader=user.leader,
+                        sales_channel=user.sales_channel,
+                        id_goal=user.id_goal
+                    )
+                    print(data)
 
                     response = ResponseSignin(
                         code="200",

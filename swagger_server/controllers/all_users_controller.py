@@ -52,13 +52,14 @@ class AllUsersView(MethodView):
             try:
 
                 # Realizar la consulta a la base de datos usando la instancia de SQLAlchemy
-                user = User.query.all()
+                users = User.query.all()
                 
                 # Verificar si se encontró el usuario en la base de datos
-                if user:
+                if users:
 
-                    data = [UserData(u.to_json()) for u in user]
+                    #data = [UserData(u.to_json()) for u in user]
 
+                    data = [u.to_json() for u in users]
                     # Creemos el objeto ResponseCheckUser con los datos del usuario en la sección 'data'
                     response = ResponseAllUsers(
                         code="200",

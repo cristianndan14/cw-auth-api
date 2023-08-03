@@ -425,11 +425,15 @@ components:
           type: string
           example: fcea920f7412b5da7be0cf42b8c93759
         data:
-          $ref: '#/components/schemas/ResponseResetPassword_data'
+          type: object
+          properties:
+            token_reset_password:
+              type: string
+              example: ascasd123$%13
       example:
         code: "0"
         data:
-          code_email: admin@xtrim.ec
+          token_reset_password: ascasd123$%13
         internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
         externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
         message: El token para el reset de contraseña fue enviado a su mail.
@@ -454,8 +458,16 @@ components:
         code: "0"
         data:
           role_id: 1
-          code_email: admin@xtrim.ec
-          profile: admin
+          phone: "3592211658"
+          city: Quito
+          code_email: j.alcaraz@xtrim.ec
+          profile: operaciones
+          name: Jorge
+          email: j.alcaraz@xtrim.ec
+          status: ACTIVO
+          leader: 0
+          sales_channel: CALLCENTER
+          id_goal: 1
         internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
         externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
         message: Inicio de sesión exitoso
