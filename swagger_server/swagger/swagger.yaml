@@ -1,0 +1,488 @@
+openapi: 3.0.3
+info:
+  title: auth-ms
+  description: |
+    Authentication microservice
+  version: 1.0.0
+servers:
+- url: /rest/auth-ms/v1.0/
+paths:
+  /checkUser:
+    post:
+      tags:
+      - Check user
+      summary: Obtener un usuario
+      description: Obtener un usuario
+      operationId: get_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestCheckUser'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCheckUser'
+        "404":
+          description: User not Found
+      x-openapi-router-controller: swagger_server.controllers.check_user_controller.CheckUserView
+  /signup:
+    post:
+      tags:
+      - Signup
+      summary: Registrar vendedor
+      description: Registrar vendedor
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestSignup'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSignup'
+        "400":
+          description: Invalid data
+      x-openapi-router-controller: swagger_server.controllers.signup_controller.SignupView
+  /registerUserByAdmin:
+    post:
+      tags:
+      - Register user
+      summary: Registrar usuario
+      description: Registrar usuario desde el administrador
+      operationId: register_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestRegisterUserByAdmin'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseRegisterUserByAdmin'
+        "400":
+          description: Invalid data
+      x-openapi-router-controller: swagger_server.controllers.register_user_controller.RegisterUserView
+  /signin:
+    post:
+      tags:
+      - Signin users
+      summary: Inicio de sesion de usuarios
+      description: Inicio de sesion de usuarios
+      operationId: signin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestSignin'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSignin'
+        "400":
+          description: Invalid credentials
+      x-openapi-router-controller: swagger_server.controllers.signin_users_controller.SigninView
+  /tokenResetPassword:
+    post:
+      tags:
+      - Token Reset Password
+      summary: Generar token para resetear password
+      description: Generar token para resetear password
+      operationId: token_reset_password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestTokenResetPassword'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseTokenResetPassword'
+        "400":
+          description: Invalid code_email
+      x-openapi-router-controller: swagger_server.controllers.token_reset_password_controller.TokenResetPasswordView
+  /resetPassword:
+    post:
+      tags:
+      - Reset Password
+      summary: Resetear password
+      description: Resetear password
+      operationId: reset_password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestResetPassword'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseResetPassword'
+        "400":
+          description: Invalid token
+      x-openapi-router-controller: swagger_server.controllers.reset_password_controller.ResetPasswordView
+components:
+  schemas:
+    RequestResetPassword:
+      required:
+      - channel
+      - data
+      - externalTransactionId
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/ResetPasswordData'
+    RequestTokenResetPassword:
+      required:
+      - channel
+      - code_email
+      - externalTransactionId
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+    RequestSignin:
+      required:
+      - channel
+      - data
+      - externalTransactionId
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/UserData'
+    RequestRegisterUserByAdmin:
+      required:
+      - channel
+      - data
+      - externalTransactionId
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/RegisterUserByAdminData'
+    RequestSignup:
+      required:
+      - channel
+      - data
+      - externalTransactionId
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/UserData'
+    RequestCheckUser:
+      required:
+      - channel
+      - code_email
+      - externalTransactionId
+      properties:
+        channel:
+          type: string
+          example: CHANNEL
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+    ResetPasswordData:
+      type: object
+      properties:
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+        password:
+          type: string
+          example: Admin$1234
+        token:
+          type: string
+          example: b411825e90b6ead9
+    UserData:
+      type: object
+      properties:
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+        password:
+          type: string
+          example: Admin$1234
+    CheckUserData:
+      type: object
+      properties:
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+        profile:
+          type: string
+          example: admin
+        status:
+          type: string
+          example: ACTIVO
+      example:
+        code_email: admin@xtrim.ec
+        profile: admin
+        status: ACTIVO
+    SigninData:
+      type: object
+      properties:
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+        profile:
+          type: string
+          example: admin
+        role_id:
+          type: integer
+          example: 1
+      example:
+        role_id: 1
+        code_email: admin@xtrim.ec
+        profile: admin
+    RegisterUserByAdminData:
+      type: object
+      properties:
+        code_email:
+          type: string
+          example: j.alcaraz@xtrim.ec
+        profile:
+          type: string
+          example: operaciones
+        name:
+          type: string
+          example: Jorge
+        phone:
+          type: string
+          example: "3592211658"
+        email:
+          type: string
+          example: j.alcaraz@xtrim.ec
+        city:
+          type: string
+          example: Quito
+        status:
+          type: string
+          example: ACTIVO
+        role_id:
+          type: integer
+          example: 1
+      example:
+        role_id: 1
+        phone: "3592211658"
+        city: Quito
+        code_email: j.alcaraz@xtrim.ec
+        profile: operaciones
+        name: Jorge
+        email: j.alcaraz@xtrim.ec
+        status: ACTIVO
+    ResponseResetPassword:
+      properties:
+        code:
+          type: string
+          example: "0"
+        message:
+          type: string
+          example: Su contraseña fue reestablecida exitosamente.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/ResponseResetPassword_data'
+      example:
+        code: "0"
+        data:
+          code_email: admin@xtrim.ec
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Su contraseña fue reestablecida exitosamente.
+    ResponseTokenResetPassword:
+      properties:
+        code:
+          type: string
+          example: "0"
+        message:
+          type: string
+          example: El token para el reset de contraseña fue enviado a su mail.
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/ResponseResetPassword_data'
+      example:
+        code: "0"
+        data:
+          code_email: admin@xtrim.ec
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: El token para el reset de contraseña fue enviado a su mail.
+    ResponseSignin:
+      properties:
+        code:
+          type: string
+          example: "0"
+        message:
+          type: string
+          example: Inicio de sesión exitoso
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/SigninData'
+      example:
+        code: "0"
+        data:
+          role_id: 1
+          code_email: admin@xtrim.ec
+          profile: admin
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Inicio de sesión exitoso
+    ResponseCheckUser:
+      properties:
+        code:
+          type: string
+          example: "0"
+        message:
+          type: string
+          example: Datos obtenidos exitosamente
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/CheckUserData'
+      example:
+        code: "0"
+        data:
+          code_email: admin@xtrim.ec
+          profile: admin
+          status: ACTIVO
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Datos obtenidos exitosamente
+    ResponseSignup:
+      properties:
+        code:
+          type: string
+          example: "0"
+        message:
+          type: string
+          example: Usuario registrado exitosamente
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/ResponseResetPassword_data'
+      example:
+        code: "0"
+        data:
+          code_email: admin@xtrim.ec
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Usuario registrado exitosamente
+    ResponseRegisterUserByAdmin:
+      properties:
+        code:
+          type: string
+          example: "0"
+        message:
+          type: string
+          example: Usuario registrado exitosamente
+        internalTransactionId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId:
+          type: string
+          example: fcea920f7412b5da7be0cf42b8c93759
+        data:
+          $ref: '#/components/schemas/RegisterUserByAdminData'
+      example:
+        code: "0"
+        data:
+          role_id: 1
+          phone: "3592211658"
+          city: Quito
+          code_email: j.alcaraz@xtrim.ec
+          profile: operaciones
+          name: Jorge
+          email: j.alcaraz@xtrim.ec
+          status: ACTIVO
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Usuario registrado exitosamente
+    ResponseResetPassword_data:
+      type: object
+      properties:
+        code_email:
+          type: string
+          example: admin@xtrim.ec
+      example:
+        code_email: admin@xtrim.ec
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: API-KEY
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key_auth
+

@@ -1,0 +1,61 @@
+{
+    "MODE": "PROD",
+    "SALT": "$2b$12$DmpeAC/LMmc8UVA2ty5Uou",
+    "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://uslexoltmzhjuwju:JW0KQ10SJxSqmfjXIN17@54.39.75.7:3306/bby4r4fgu93of1hen4wj",
+    "SERVICES": {
+        "CEDULA_VENTAS":{
+            "URL": "https://gestion-autoservicio-xtrim.intelnexo.com/back_celula_prod/planform_integrate",
+            "HEADERS": {
+                "xtrim-api-key": "MnpoJwjCIK3XYDtWbjH=x/GsG6pU2CkEXDSDl-oo6sq7CJ7f6ST80V3EjH!puc2p1VVfp-4EZITH313we5mCR=wWLFA9v====W7cHHFngKUE82l/syhoqqNblg==feORuKS9!?CGCs=6G3jo3rWBj63DB1g7uMDgFTsDaX2rCaAdb/QI?v7Kbk5dlMtwD/ci066ltS4jqRTsug0j6XLPX?j!MQ4XT73!JDWIMT4oPDUEZkwgjzrdijAzAiwYhxs",
+                "channel": "api"
+            },
+            "REQUEST": {
+                "channel": "Ingreso de Contratos",
+                "identificationNumber": "1206569061",
+                "cargo": "vendedor",
+                "externalTransactionId": "qerkjvaervkjq"
+            },
+            "METHOD": "POST"
+        },
+        "EMAIL_NOTIFICACIONES": {
+            "URL": "https://apixdev.grupotvcable.com/rest/notification-app-api/v1.0/email/template",
+            "HEADERS": {
+                "Authorization": "token_xtrim",
+                "Content-Type": "application/json"
+            },
+            "REQUEST": {
+                "channel": "TYTAN",
+                "data": {
+                    "email": {
+                        "attachment": [],
+                        "bcc": [],
+                        "cc": [],
+                        "from": {"email": "dvillamar@xtrim.com.ec", "name": "Recuperacion de cuenta"},
+                        "subject": "Token de recuperacion de cuenta",
+                        "to": "EMAIL"
+                    },
+                    "provider": "MAILUP",
+                    "template": {
+                        "id": "11614",
+                        "variables": [
+                            {"name": "fieldstr02", "value": "Body"},
+                            {"name": "fieldstr01", "value": "Titulo"}
+                        ]
+                    }
+                },
+                "externalTransactionId": "fcea920f7412b5da7be0cf42b8c93759"
+            },
+            "METHOD": "POST"
+        },
+        "TOKEN_XTRIM": {
+            "URL": "https://apixdev.grupotvcable.com/rest/token-api/v1.0/generate",
+            "REQUEST": {
+                "channel": "string",
+                "key": "YXBpbV9pbmdyZXNvX2NvbnRyYXRvOjcxYjI5NWNiLTZkZTUtNDFmMy05OGQ0LTE5ZTI4ZTc4MTFlYg==",
+                "realm": "realm-ecommerce-IngresoContrato",
+                "type": "Basic"
+            },
+            "METHOD": "POST"
+        }
+    }
+}
