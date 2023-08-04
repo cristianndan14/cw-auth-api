@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.api_data import ApiData  # noqa: F401,E501
 from swagger_server.models.signin_signup_user_data import SigninSignupUserData  # noqa: F401,E501
 from swagger_server import util
 
@@ -15,29 +16,34 @@ class RequestSignup(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, channel: str=None, external_transaction_id: str=None, data: SigninSignupUserData=None):  # noqa: E501
+    def __init__(self, channel: str=None, external_transaction_id: str=None, api_data: ApiData=None, data: SigninSignupUserData=None):  # noqa: E501
         """RequestSignup - a model defined in Swagger
 
         :param channel: The channel of this RequestSignup.  # noqa: E501
         :type channel: str
         :param external_transaction_id: The external_transaction_id of this RequestSignup.  # noqa: E501
         :type external_transaction_id: str
+        :param api_data: The api_data of this RequestSignup.  # noqa: E501
+        :type api_data: ApiData
         :param data: The data of this RequestSignup.  # noqa: E501
         :type data: SigninSignupUserData
         """
         self.swagger_types = {
             'channel': str,
             'external_transaction_id': str,
+            'api_data': ApiData,
             'data': SigninSignupUserData
         }
 
         self.attribute_map = {
             'channel': 'channel',
             'external_transaction_id': 'externalTransactionId',
+            'api_data': 'api_data',
             'data': 'data'
         }
         self._channel = channel
         self._external_transaction_id = external_transaction_id
+        self._api_data = api_data
         self._data = data
 
     @classmethod
@@ -96,6 +102,27 @@ class RequestSignup(Model):
             raise ValueError("Invalid value for `external_transaction_id`, must not be `None`")  # noqa: E501
 
         self._external_transaction_id = external_transaction_id
+
+    @property
+    def api_data(self) -> ApiData:
+        """Gets the api_data of this RequestSignup.
+
+
+        :return: The api_data of this RequestSignup.
+        :rtype: ApiData
+        """
+        return self._api_data
+
+    @api_data.setter
+    def api_data(self, api_data: ApiData):
+        """Sets the api_data of this RequestSignup.
+
+
+        :param api_data: The api_data of this RequestSignup.
+        :type api_data: ApiData
+        """
+
+        self._api_data = api_data
 
     @property
     def data(self) -> SigninSignupUserData:

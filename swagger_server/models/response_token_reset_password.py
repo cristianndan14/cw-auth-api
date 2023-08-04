@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.response_reset_password_data import ResponseResetPasswordData  # noqa: F401,E501
+from swagger_server.models.response_token_reset_password_data import ResponseTokenResetPasswordData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +15,7 @@ class ResponseTokenResetPassword(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: ResponseResetPasswordData=None):  # noqa: E501
+    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: ResponseTokenResetPasswordData=None):  # noqa: E501
         """ResponseTokenResetPassword - a model defined in Swagger
 
         :param code: The code of this ResponseTokenResetPassword.  # noqa: E501
@@ -27,14 +27,14 @@ class ResponseTokenResetPassword(Model):
         :param external_transaction_id: The external_transaction_id of this ResponseTokenResetPassword.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this ResponseTokenResetPassword.  # noqa: E501
-        :type data: ResponseResetPasswordData
+        :type data: ResponseTokenResetPasswordData
         """
         self.swagger_types = {
             'code': str,
             'message': str,
             'internal_transaction_id': str,
             'external_transaction_id': str,
-            'data': ResponseResetPasswordData
+            'data': ResponseTokenResetPasswordData
         }
 
         self.attribute_map = {
@@ -146,22 +146,22 @@ class ResponseTokenResetPassword(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> ResponseResetPasswordData:
+    def data(self) -> ResponseTokenResetPasswordData:
         """Gets the data of this ResponseTokenResetPassword.
 
 
         :return: The data of this ResponseTokenResetPassword.
-        :rtype: ResponseResetPasswordData
+        :rtype: ResponseTokenResetPasswordData
         """
         return self._data
 
     @data.setter
-    def data(self, data: ResponseResetPasswordData):
+    def data(self, data: ResponseTokenResetPasswordData):
         """Sets the data of this ResponseTokenResetPassword.
 
 
         :param data: The data of this ResponseTokenResetPassword.
-        :type data: ResponseResetPasswordData
+        :type data: ResponseTokenResetPasswordData
         """
 
         self._data = data

@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.check_user_data import CheckUserData  # noqa: F401,E501
+from swagger_server.models.user_data import UserData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +15,7 @@ class ResponseAllUsers(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: List[CheckUserData]=None):  # noqa: E501
+    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: List[UserData]=None):  # noqa: E501
         """ResponseAllUsers - a model defined in Swagger
 
         :param code: The code of this ResponseAllUsers.  # noqa: E501
@@ -27,14 +27,14 @@ class ResponseAllUsers(Model):
         :param external_transaction_id: The external_transaction_id of this ResponseAllUsers.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this ResponseAllUsers.  # noqa: E501
-        :type data: List[CheckUserData]
+        :type data: List[UserData]
         """
         self.swagger_types = {
             'code': str,
             'message': str,
             'internal_transaction_id': str,
             'external_transaction_id': str,
-            'data': List[CheckUserData]
+            'data': List[UserData]
         }
 
         self.attribute_map = {
@@ -146,22 +146,22 @@ class ResponseAllUsers(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> List[CheckUserData]:
+    def data(self) -> List[UserData]:
         """Gets the data of this ResponseAllUsers.
 
 
         :return: The data of this ResponseAllUsers.
-        :rtype: List[CheckUserData]
+        :rtype: List[UserData]
         """
         return self._data
 
     @data.setter
-    def data(self, data: List[CheckUserData]):
+    def data(self, data: List[UserData]):
         """Sets the data of this ResponseAllUsers.
 
 
         :param data: The data of this ResponseAllUsers.
-        :type data: List[CheckUserData]
+        :type data: List[UserData]
         """
 
         self._data = data

@@ -243,6 +243,8 @@ components:
         externalTransactionId:
           type: string
           example: fcea920f7412b5da7be0cf42b8c93759
+        api_data:
+          $ref: '#/components/schemas/ApiData'
         data:
           $ref: '#/components/schemas/SigninSignupUserData'
     RequestCheckUser:
@@ -260,6 +262,35 @@ components:
         code_email:
           type: string
           example: admin@xtrim.ec
+    ApiData:
+      type: object
+      properties:
+        codVendor:
+          type: string
+          example: "102101113"
+        identificationNumber:
+          type: string
+          example: "1206569061"
+        city:
+          type: string
+          example: BABAHOYO
+        status:
+          type: string
+          example: ACTIVO
+        email:
+          type: string
+          example: lv3976400@gmail.com
+        cellphone:
+          type: string
+          example: "999465289"
+        goals:
+          $ref: '#/components/schemas/ApiData_goals'
+        salesChannel:
+          type: string
+          example: VINCULADO
+        leader:
+          type: integer
+          example: 0
     ResetPasswordData:
       type: object
       properties:
@@ -278,6 +309,9 @@ components:
         code_email:
           type: string
           example: admin@xtrim.ec
+        name:
+          type: string
+          example: Jorge
         password:
           type: string
           example: Admin$1234
@@ -425,11 +459,7 @@ components:
           type: string
           example: fcea920f7412b5da7be0cf42b8c93759
         data:
-          type: object
-          properties:
-            token_reset_password:
-              type: string
-              example: ascasd123$%13
+          $ref: '#/components/schemas/ResponseTokenResetPassword_data'
       example:
         code: "0"
         data:
@@ -490,6 +520,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UserData'
+      example:
+        code: "0"
+        data:
+        - role_id: 1
+          phone: "3592211658"
+          city: Quito
+          code_email: j.alcaraz@xtrim.ec
+          profile: operaciones
+          name: Jorge
+          email: j.alcaraz@xtrim.ec
+          status: ACTIVO
+          leader: 0
+          sales_channel: CALLCENTER
+          id_goal: 1
+        - role_id: 1
+          phone: "3592211658"
+          city: Quito
+          code_email: j.alcaraz@xtrim.ec
+          profile: operaciones
+          name: Jorge
+          email: j.alcaraz@xtrim.ec
+          status: ACTIVO
+          leader: 0
+          sales_channel: CALLCENTER
+          id_goal: 1
+        internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
+        message: Datos obtenidos exitosamente
     ResponseCheckUser:
       properties:
         code:
@@ -533,11 +591,21 @@ components:
           type: string
           example: fcea920f7412b5da7be0cf42b8c93759
         data:
-          $ref: '#/components/schemas/ResponseResetPassword_data'
+          $ref: '#/components/schemas/UserData'
       example:
         code: "0"
         data:
-          code_email: admin@xtrim.ec
+          role_id: 1
+          phone: "3592211658"
+          city: Quito
+          code_email: j.alcaraz@xtrim.ec
+          profile: operaciones
+          name: Jorge
+          email: j.alcaraz@xtrim.ec
+          status: ACTIVO
+          leader: 0
+          sales_channel: CALLCENTER
+          id_goal: 1
         internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
         externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
         message: Usuario registrado exitosamente
@@ -580,10 +648,36 @@ components:
           example: admin@xtrim.ec
       example:
         code_email: admin@xtrim.ec
+    ApiData_goals:
+      type: object
+      properties:
+        Internet_volumen:
+          type: integer
+          example: 10
+        Internet_dolar:
+          type: number
+          example: 249.9
+        Television_volumen:
+          type: integer
+          example: 0
+        Television_dolar:
+          type: number
+        Telefonia_volumen:
+          type: integer
+          example: 0
+        Telefonia_dolar:
+          type: number
+          example: 0
+    ResponseTokenResetPassword_data:
+      type: object
+      properties:
+        token_reset_password:
+          type: string
+          example: ascasd123$%13
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       name: API-KEY
       in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key_auth
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_ApiKeyAuth
 

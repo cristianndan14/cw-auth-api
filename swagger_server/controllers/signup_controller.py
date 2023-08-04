@@ -1,11 +1,10 @@
 import connexion
 import re
-import requests
 
 from swagger_server.models.request_signup import RequestSignup  # noqa: E501
 from swagger_server.models.response_signup import ResponseSignup  # noqa: E501
 from swagger_server.models.db.user_model import User
-from swagger_server.models.response_reset_password_data import ResponseResetPasswordData
+from swagger_server.models.user_data import UserData
 
 from flask.views import MethodView
 
@@ -13,9 +12,6 @@ from timeit import default_timer
 
 from swagger_server.utils.transactions.transaction import generate_internal_transaction_id
 from swagger_server.utils.logs.logging import log as logging
-from swagger_server.utils.encrypt import encrypt_password
-
-from swagger_server.config.access import access
 
 
 class SignupView(MethodView):
@@ -56,58 +52,47 @@ class SignupView(MethodView):
             try:
 
                 request = body.data.to_dict()
+                request_api = body.api_data.to_dict()
 
                 code_email = request.get('code_email')
-                password = encrypt_password(request.get('password'))
+                password = request.get('password')
+                name = request.get('name')
 
                 patron = r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#=_+-])[A-Za-z\d@$!%*?&#=_+-]{7,}$"
-
-                api = access().get("SERVICES").get("CEDULA_VENTAS")
-
-                api_url = api.get("URL")
-                api_headers = api.get("HEADERS")
-                api_request = api.get("REQUEST")
-
-                api_request.update({"identificationNumber": code_email})
-
-                response_api = requests.post(api_url, json=api_request ,headers=api_headers).json()
-
-                response_api_data = response_api.get("data")
-                print(response_api_data)
-
-                user_exist = User.query.filter_by(code_email=code_email).first()
                 
 
-                if user_exist:
-
-                    response = ResponseSignup(
-                        code=-1,
-                        message=f"Ya existe un usuario con el code_email {code_email}",
-                        data= [],
-                        internal_transaction_id=internal_transaction_id,
-                        external_transaction_id=external_transaction_id
-                    )
-
-                    return response, 400
-
-                if re.match(patron, request.get('password')) and response_api.get("code") == 200:
+                if re.match(patron, password) and name:
 
                     new_vendor = {
                         "code_email": code_email,
-                        "city": response_api_data.get("city"),
-                        "status": response_api_data.get("status"),
-                        "email": response_api_data.get("email"),
-                        "phone": response_api_data.get("phone"),
-                        "password": password,
                         "profile": "vendor",
-                        
+                        "name": name,
+                        "phone": request_api.get("cellphone"),
+                        "email": request_api.get("email"),
+                        "city": request_api.get("city"),
+                        "status": request_api.get("status"),
+                        "role_id": 1,
+                        "leader": request_api.get("leader"),
+                        "sales_channel": request_api.get("salesChannel"),                      
+                        "password": password
                     }
 
                     add_vendor = User(new_vendor)
                     
                     add_vendor.save()
 
-                    data = ResponseResetPasswordData(code_email=add_vendor.code_email)
+                    data = UserData(
+                        code_email=add_vendor.code_email,
+                        profile=add_vendor.profile,
+                        name=add_vendor.name,
+                        phone=add_vendor.phone,
+                        email=add_vendor.email,
+                        city=add_vendor.city,
+                        status=add_vendor.status,
+                        role_id=add_vendor.role_id,
+                        leader=add_vendor.leader,
+                        sales_channel=add_vendor.sales_channel
+                    )
                     
                     response = ResponseSignup(
                         code="200",
@@ -120,8 +105,7 @@ class SignupView(MethodView):
                 else:
                     response = ResponseSignup(
                         code=-1,
-                        message="La contraseña no cumple los requisitos de seguridad. Debe contener al menos 7 carateres compuestos por Mayúsculas, números y caracteres especiales" if not re.match(patron, request.get('password')) 
-                                    else response_api.get("message"),
+                        message="La contraseña debe contener al menos 7 carateres compuestos por Mayúsculas, números y caracteres especiales" if not re.match(patron, password) else "Ingrese un nombre",
                         data= [],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id

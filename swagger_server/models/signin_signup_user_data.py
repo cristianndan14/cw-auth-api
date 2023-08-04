@@ -14,24 +14,29 @@ class SigninSignupUserData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code_email: str=None, password: str=None):  # noqa: E501
+    def __init__(self, code_email: str=None, name: str=None, password: str=None):  # noqa: E501
         """SigninSignupUserData - a model defined in Swagger
 
         :param code_email: The code_email of this SigninSignupUserData.  # noqa: E501
         :type code_email: str
+        :param name: The name of this SigninSignupUserData.  # noqa: E501
+        :type name: str
         :param password: The password of this SigninSignupUserData.  # noqa: E501
         :type password: str
         """
         self.swagger_types = {
             'code_email': str,
+            'name': str,
             'password': str
         }
 
         self.attribute_map = {
             'code_email': 'code_email',
+            'name': 'name',
             'password': 'password'
         }
         self._code_email = code_email
+        self._name = name
         self._password = password
 
     @classmethod
@@ -65,6 +70,27 @@ class SigninSignupUserData(Model):
         """
 
         self._code_email = code_email
+
+    @property
+    def name(self) -> str:
+        """Gets the name of this SigninSignupUserData.
+
+
+        :return: The name of this SigninSignupUserData.
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        """Sets the name of this SigninSignupUserData.
+
+
+        :param name: The name of this SigninSignupUserData.
+        :type name: str
+        """
+
+        self._name = name
 
     @property
     def password(self) -> str:

@@ -1,4 +1,5 @@
 import connexion
+import requests
 
 from swagger_server.models.request_check_user import RequestCheckUser  # noqa: E501
 from swagger_server.models.response_check_user import ResponseCheckUser  # noqa: E501
@@ -12,6 +13,8 @@ from swagger_server.utils.transactions.transaction import generate_internal_tran
 from swagger_server.utils.logs.logging import log as logging
 
 from swagger_server.models.db.user_model import User
+
+from swagger_server.config.access import access
 
 
 class CheckUserView(MethodView):
@@ -71,11 +74,36 @@ class CheckUserView(MethodView):
                         external_transaction_id=external_transaction_id
                     )
 
+                    return response, 200
+                
+
+                api = access().get("SERVICES").get("CEDULA_VENTAS")
+
+                api_url = api.get("URL")
+                api_headers = api.get("HEADERS")
+                api_request = api.get("REQUEST")
+
+                api_request.update({"identificationNumber": code_email})
+
+                response_api = requests.post(api_url, json=api_request ,headers=api_headers).json()
+
+                if response_api.get("code") == 200:
+
+                    response = {
+                        "code": "201",
+                        "message": "Datos obtenidos de la cedula de ventas",
+                        "api_data": response_api.get("data"),
+                        "internal_transaction_id": internal_transaction_id,
+                        "external_transaction_id": external_transaction_id
+                    }
+
+                    return response, 201
+
                 else:
                     # Usuario no encontrado, creemos un objeto ResponseCheckUser con el mensaje de usuario no encontrado y sin datos
                     response = ResponseCheckUser(
                         code="404",
-                        message=message,
+                        message="Usuario inexistente",
                         data=[],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
