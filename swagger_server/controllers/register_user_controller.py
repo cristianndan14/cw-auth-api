@@ -84,10 +84,10 @@ class RegisterUserView(MethodView):
                     return response, 400
 
                 if code_email is not None:
-                    
+                    print(f"new user: {new_user}")
                     user = User(new_user)
                     user.save()
-
+                    print(f"user: {user}")
                     response = ResponseRegisterUserByAdmin(
                         code="200",
                         message="Usuario creado exitosamente",
