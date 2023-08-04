@@ -71,7 +71,7 @@ class SignupView(MethodView):
                         "email": request_api.get("email"),
                         "city": request_api.get("city"),
                         "status": request_api.get("status"),
-                        "role": 1,
+                        "role_id": 1,
                         "leader": request_api.get("leader"),
                         "sales_channel": request_api.get("salesChannel"),                      
                         "password": password

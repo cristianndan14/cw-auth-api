@@ -36,6 +36,7 @@ class User(db.Model):
         self.password = payload.get('password')
         self.phone = payload.get('phone')
         self.profile = payload.get('profile')
+        self.role_id = payload.get('role_id')
         self.role = payload.get('role')
         self.goals = payload.get('goals')
         self.sales_channel = payload.get('sales_channel')
