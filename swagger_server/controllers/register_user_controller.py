@@ -53,37 +53,52 @@ class RegisterUserView(MethodView):
 
                 new_user = body.data.to_dict()
                 code_email = new_user.get('code_email')
+                password = new_user.get('password')
                 
                 user_exist = User.query.filter_by(code_email=code_email).first()
 
-                if new_user and user_exist is None:
+                if user_exist:
+                    
+                    response = ResponseRegisterUserByAdmin(
+                        code="400",
+                        message=f"Ya existe un usuario con el code_email {code_email}",
+                        data= [],
+                        internal_transaction_id=internal_transaction_id,
+                        external_transaction_id=external_transaction_id
+                    )
+
+                    return response, 400
+
+                patron = r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#=_+-])[A-Za-z\d@$!%*?&#=_+-]{7,}$"
+                
+                if not re.match(patron, password):
+
+                    response = ResponseRegisterUserByAdmin(
+                        code="400",
+                        message="La contraseña debe contener al menos 7 carateres compuestos por Mayúsculas, números y caracteres especiales",
+                        data= [],
+                        internal_transaction_id=internal_transaction_id,
+                        external_transaction_id=external_transaction_id
+                    )
+
+                    return response, 400
+
+                if code_email is not None:
                     
                     user = User(new_user)
                     user.save()
-                    
-                    data = RegisterUserByAdminData(
-                            code_email=user.code_email,
-                            profile=user.profile,
-                            name=user.name,
-                            phone=user.phone,
-                            email=user.email,
-                            city=user.city,
-                            status=user.status,
-                            role_id=user.role_id
-                    )
 
                     response = ResponseRegisterUserByAdmin(
                         code="200",
                         message="Usuario creado exitosamente",
-                        data=data,
+                        data=[],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
                 else:
                     response = ResponseRegisterUserByAdmin(
-                        code=-1,
-                        message="Para crear un usuario, necesita registrar un code_email" if not code_email else f"Ya existe un usuario con el code_email {code_email}",
-                        data= [],
+                        code="400",
+                        message="Para crear un usuario, necesita registrar un code_email",
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )

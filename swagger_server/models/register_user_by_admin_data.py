@@ -14,7 +14,7 @@ class RegisterUserByAdminData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code_email: str=None, profile: str=None, name: str=None, phone: str=None, email: str=None, city: str=None, status: str=None, role_id: int=None):  # noqa: E501
+    def __init__(self, code_email: str=None, profile: str=None, name: str=None, phone: str=None, email: str=None, city: str=None, status: str=None, role_id: int=None, password: str=None):  # noqa: E501
         """RegisterUserByAdminData - a model defined in Swagger
 
         :param code_email: The code_email of this RegisterUserByAdminData.  # noqa: E501
@@ -33,6 +33,8 @@ class RegisterUserByAdminData(Model):
         :type status: str
         :param role_id: The role_id of this RegisterUserByAdminData.  # noqa: E501
         :type role_id: int
+        :param password: The password of this RegisterUserByAdminData.  # noqa: E501
+        :type password: str
         """
         self.swagger_types = {
             'code_email': str,
@@ -42,7 +44,8 @@ class RegisterUserByAdminData(Model):
             'email': str,
             'city': str,
             'status': str,
-            'role_id': int
+            'role_id': int,
+            'password': str
         }
 
         self.attribute_map = {
@@ -53,7 +56,8 @@ class RegisterUserByAdminData(Model):
             'email': 'email',
             'city': 'city',
             'status': 'status',
-            'role_id': 'role_id'
+            'role_id': 'role_id',
+            'password': 'password'
         }
         self._code_email = code_email
         self._profile = profile
@@ -63,6 +67,7 @@ class RegisterUserByAdminData(Model):
         self._city = city
         self._status = status
         self._role_id = role_id
+        self._password = password
 
     @classmethod
     def from_dict(cls, dikt) -> 'RegisterUserByAdminData':
@@ -242,3 +247,24 @@ class RegisterUserByAdminData(Model):
         """
 
         self._role_id = role_id
+
+    @property
+    def password(self) -> str:
+        """Gets the password of this RegisterUserByAdminData.
+
+
+        :return: The password of this RegisterUserByAdminData.
+        :rtype: str
+        """
+        return self._password
+
+    @password.setter
+    def password(self, password: str):
+        """Sets the password of this RegisterUserByAdminData.
+
+
+        :param password: The password of this RegisterUserByAdminData.
+        :type password: str
+        """
+
+        self._password = password

@@ -410,6 +410,9 @@ components:
         role_id:
           type: integer
           example: 1
+        password:
+          type: string
+          example: Sditq124$
       example:
         role_id: 1
         phone: "3592211658"
@@ -419,6 +422,7 @@ components:
         name: Jorge
         email: j.alcaraz@xtrim.ec
         status: ACTIVO
+        password: Sditq124$
     ResponseResetPassword:
       properties:
         code:
