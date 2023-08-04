@@ -52,3 +52,20 @@ def check_email(email):
     else:
         return False
 
+
+def check_security_password(password:str):
+    """
+    Valida si la contraseña cumple con los requisitos de seguridad
+
+    Args:
+        password (String): correo electronico
+
+    Returns:
+        True or False si la contraseña es valida o invalida
+    """
+    regex = r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#=_+-])[A-Za-z\d@$!%*?&#=_+-]{7,}$"
+
+    if re.match(regex, password):
+        return True
+    else:
+        return False

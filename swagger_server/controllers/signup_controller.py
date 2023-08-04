@@ -1,5 +1,4 @@
 import connexion
-import re
 
 from swagger_server.models.request_signup import RequestSignup  # noqa: E501
 from swagger_server.models.response_signup import ResponseSignup  # noqa: E501
@@ -58,10 +57,8 @@ class SignupView(MethodView):
                 password = request.get('password')
                 name = request.get('name')
 
-                patron = r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#=_+-])[A-Za-z\d@$!%*?&#=_+-]{7,}$"
-                
 
-                if re.match(patron, password) and name:
+                if name:
 
                     new_vendor = {
                         "code_email": code_email,
@@ -105,7 +102,7 @@ class SignupView(MethodView):
                 else:
                     response = ResponseSignup(
                         code=-1,
-                        message="La contraseña debe contener al menos 7 carateres compuestos por Mayúsculas, números y caracteres especiales" if not re.match(patron, password) else "Ingrese un nombre",
+                        message="Ingrese un nombre",
                         data= [],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id

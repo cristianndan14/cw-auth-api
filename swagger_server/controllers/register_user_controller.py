@@ -1,9 +1,7 @@
 import connexion
-import re
 
 from swagger_server.models.request_register_user_by_admin import RequestRegisterUserByAdmin  # noqa: E501
 from swagger_server.models.response_register_user_by_admin import ResponseRegisterUserByAdmin  # noqa: E501
-from swagger_server.models.register_user_by_admin_data import RegisterUserByAdminData
 from swagger_server.models.db.user_model import User
 
 from flask.views import MethodView
@@ -53,7 +51,6 @@ class RegisterUserView(MethodView):
 
                 new_user = body.data.to_dict()
                 code_email = new_user.get('code_email')
-                password = new_user.get('password')
                 
                 user_exist = User.query.filter_by(code_email=code_email).first()
 
@@ -69,29 +66,15 @@ class RegisterUserView(MethodView):
 
                     return response, 400
 
-                patron = r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#=_+-])[A-Za-z\d@$!%*?&#=_+-]{7,}$"
-                
-                if not re.match(patron, password):
-
-                    response = ResponseRegisterUserByAdmin(
-                        code="400",
-                        message="La contraseña debe contener al menos 7 carateres compuestos por Mayúsculas, números y caracteres especiales",
-                        data= [],
-                        internal_transaction_id=internal_transaction_id,
-                        external_transaction_id=external_transaction_id
-                    )
-
-                    return response, 400
-
                 if code_email is not None:
-                    print(f"new user: {new_user}")
+
                     user = User(new_user)
                     user.save()
-                    print(f"user: {user}")
+
                     response = ResponseRegisterUserByAdmin(
                         code="200",
                         message="Usuario creado exitosamente",
-                        data=[],
+                        data=code_email,
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
