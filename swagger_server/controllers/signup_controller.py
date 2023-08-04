@@ -70,7 +70,7 @@ class SignupView(MethodView):
 
                 api_request.update({"identificationNumber": code_email})
 
-                response_api = requests.post(api_url, json=api_request ,headers=api_headers).json().logging()
+                response_api = requests.post(api_url, json=api_request ,headers=api_headers).json()
 
                 response_api_data = response_api.get("data")
                 print(response_api_data)
