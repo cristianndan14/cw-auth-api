@@ -1,7 +1,7 @@
 {
     "MODE": "PROD",
     "SALT": "$2b$12$DmpeAC/LMmc8UVA2ty5Uou",
-    "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://uslexoltmzhjuwju:JW0KQ10SJxSqmfjXIN17@54.39.75.7:3306/bby4r4fgu93of1hen4wj",
+    "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://dba:c2VjcmV0Cg==@3.144.45.58:3306/xtrim",
     "SERVICES": {
         "CEDULA_VENTAS":{
             "URL": "https://gestion-autoservicio-xtrim.intelnexo.com/back_celula_prod/planform_integrate",
