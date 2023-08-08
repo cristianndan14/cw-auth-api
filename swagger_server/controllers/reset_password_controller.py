@@ -11,7 +11,6 @@ from timeit import default_timer
 
 from swagger_server.utils.transactions.transaction import generate_internal_transaction_id
 from swagger_server.utils.logs.logging import log as logging
-from swagger_server.utils.encrypt import encrypt_password
 
 
 class ResetPasswordView(MethodView):
@@ -53,7 +52,7 @@ class ResetPasswordView(MethodView):
                 request = body.data.to_dict()
                 
                 code_email = request.get('code_email')
-                password = encrypt_password(request.get('password'))
+                password = request.get('password')
                 token_reset_password = request.get('token')
 
                 user = User.query.filter_by(code_email=code_email).first()
