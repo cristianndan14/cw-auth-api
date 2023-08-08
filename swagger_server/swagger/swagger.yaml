@@ -683,5 +683,5 @@ components:
       type: apiKey
       name: API-KEY
       in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_ApiKeyAuth
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key_auth
 
