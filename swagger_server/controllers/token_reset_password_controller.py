@@ -74,25 +74,50 @@ class TokenResetPasswordView(MethodView):
                     user.token_reset_password = token_password
                     user.save()
                 
-                """ token_xtrim_api = access().get("SERVICES").get("TOKEN_XTRIM")
+                token_xtrim_api = access().get("SERVICES").get("TOKEN_XTRIM")
                 token_xtrim_api_url = token_xtrim_api.get("URL")
                 token_xtrim_api_request = token_xtrim_api.get("REQUEST")
 
                 response_token_xtrim_api = requests.post(token_xtrim_api_url, json=token_xtrim_api_request).json()
                 token_xtrim = response_token_xtrim_api.get("data", {}).get("token")
-                print(token_xtrim)
 
                 email_notificaciones_api = access().get("SERVICES").get("EMAIL_NOTIFICACIONES")
                 email_notificaciones_api_url = email_notificaciones_api.get("URL")
                 email_notificaciones_api_headers = email_notificaciones_api.get("HEADERS")
                 email_notificaciones_api_request = email_notificaciones_api.get("REQUEST")
 
-                email_notificaciones_api_headers.update({"Authorization": f"Bearer {token_xtrim}"})
-                email_notificaciones_api_request.get("data").get("email").update({"to": user.email})
-                email_notificaciones_api_request.get("data").get("template").get("variables").update(
-                    [{"name": "fieldstr02", "value": user.token_reset_password},{"name": "fieldstr01", "value": "Token de recuperacion"}])
+                email_notificaciones_api_headers = {
+                    "Authorization": f"Bearer {token_xtrim}"
+                }
 
-                response_email_notificaciones_api = requests.post(email_notificaciones_api_url, json=email_notificaciones_api_request, headers=email_notificaciones_api_headers)
+                email_notificaciones_api_headers = email_notificaciones_api_headers
+                
+                email_notificaciones_api_request = {
+                    "channel": "TYTAN",
+                    "data": {
+                        "email": {
+                            "attachment": [],
+                            "bcc": [],
+                            "cc": [],
+                            "from": {"email": "dvillamar@xtrim.com.ec", "name": "Recuperacion de cuenta"},
+                            "subject": "Token de recuperacion de cuenta",
+                            "to": [user.email]
+                        },
+                        "provider": "MAILUP",
+                        "template": {
+                            "id": "11614",
+                            "variables": [
+                                {"name": "fieldstr02", "value": user.token_reset_password},
+                                {"name": "fieldstr01", "value": "Token de recuperacion"}
+                            ]
+                        }
+                    },
+                    "externalTransactionId": "fcea920f7412b5da7be0cf42b8c93759"
+                }
+
+
+                response_email_notificaciones_api = requests.post(email_notificaciones_api_url, json=email_notificaciones_api_request, headers=email_notificaciones_api_headers).json()
+                
 
                 if response_email_notificaciones_api:
 
@@ -103,12 +128,19 @@ class TokenResetPasswordView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
-                    return response
-                
-                else: """
+                else:
                     
-                data = {"token_reset_password": user.token_reset_password}
+                    response = ResponseTokenResetPassword(
+                        code=-1,
+                        message="ocurrio un problema con el service de notificaciones",
+                        data= response_email_notificaciones_api,
+                        internal_transaction_id=internal_transaction_id,
+                        external_transaction_id=external_transaction_id
+                    )
+
+                    return response, 400
+                    
+                """ data = {"token_reset_password": user.token_reset_password}
 
                 response = ResponseTokenResetPassword(
                     code="200",
@@ -116,7 +148,7 @@ class TokenResetPasswordView(MethodView):
                     data=data,
                     internal_transaction_id=internal_transaction_id,
                     external_transaction_id=external_transaction_id
-                )
+                ) """
 
             except Exception as ex:
 

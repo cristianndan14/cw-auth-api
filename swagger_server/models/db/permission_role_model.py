@@ -3,8 +3,8 @@ from swagger_server.resources.db import db
 
 class Permission(db.Model):
     __tablename__ = "permissions"
-    id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
+    permission_id = db.Column(db.Integer, primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey("roles.role_id"))
     route_id = db.Column(db.Integer, db.ForeignKey("routes.route_id"))
 
     role = db.relationship("Role", back_populates="permissions")
@@ -16,9 +16,9 @@ class Permission(db.Model):
 
     def to_json(self):
         return {
-            "id": self.id,
+            "permission_id": self.permission_id,
             "role_id": self.role_id,
-            "role_name": self.role.name if self.role else None,
+            "role_name": self.role.role_name if self.role else None,
             "route_data": {"route_id": self.route.route_id, "route_name": self.route.route_name}
         }
 
@@ -33,13 +33,13 @@ class Permission(db.Model):
 
 class Role(db.Model):
     __tablename__ = "roles"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True)
+    role_id = db.Column(db.Integer, primary_key=True)
+    role_name = db.Column(db.String(100), unique=True)
 
     permissions = db.relationship("Permission", back_populates="role")
 
     def __init__(self, payload):
-        self.name = payload.get('role_name')
+        self.role_name = payload.get('role_name')
 
     def to_json(self):
         permission_data = [
@@ -48,8 +48,8 @@ class Role(db.Model):
         ]
 
         return {
-            "id": self.id,
-            "name": self.name,
+            "role_id": self.role_id,
+            "role_name": self.role_name,
             "permissions": permission_data
         }
 
