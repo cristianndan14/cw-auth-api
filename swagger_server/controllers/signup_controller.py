@@ -73,7 +73,7 @@ class SignupView(MethodView):
                         "sales_channel": request_api.get("salesChannel"),                      
                         "password": password
                     }
-
+                    
                     add_vendor = User(new_vendor)
                     
                     add_vendor.save()

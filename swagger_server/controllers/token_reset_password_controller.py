@@ -115,9 +115,7 @@ class TokenResetPasswordView(MethodView):
                     "externalTransactionId": "fcea920f7412b5da7be0cf42b8c93759"
                 }
 
-
                 response_email_notificaciones_api = requests.post(email_notificaciones_api_url, json=email_notificaciones_api_request, headers=email_notificaciones_api_headers).json()
-                
 
                 if response_email_notificaciones_api:
 
