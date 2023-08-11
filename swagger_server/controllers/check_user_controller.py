@@ -44,9 +44,7 @@ class CheckUserView(MethodView):
         log = self.log
 
         if connexion.request.is_json:
-
             body = RequestCheckUser.from_dict(connexion.request.get_json())
-            
             external_transaction_id = body.external_transaction_id
             message = f"start request: {function_name}"
             log.info(
@@ -54,35 +52,24 @@ class CheckUserView(MethodView):
                 internal_transaction_id, external_transaction_id, function_name, package_name, message)
             
             try:
-                # Cambia 'code_email' por el campo que identifica al usuario en la tabla (supongo que 'code_email' es el campo correcto)
                 code_email = body.code_email
-
-                # Realizar la consulta a la base de datos usando la instancia de SQLAlchemy
                 user = User.query.filter_by(code_email=code_email).first()
                 
-                # Verificar si se encontró el usuario en la base de datos
                 if user:
-
-                    data = CheckUserData(code_email=user.code_email, profile=user.profile, status=user.status, name=user.name)
-
-                    # Creemos el objeto ResponseCheckUser con los datos del usuario en la sección 'data'
                     response = ResponseCheckUser(
                         code="200",
                         message="Datos obtenidos exitosamente",
-                        data=data,
+                        data=user.to_json(),
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
                     return response, 200
                 
-
                 api = access().get("SERVICES").get("CEDULA_VENTAS")
 
                 api_url = api.get("URL")
                 api_headers = api.get("HEADERS")
                 api_request = api.get("REQUEST")
-
                 api_request.update({"identificationNumber": code_email})
 
                 response_api = requests.post(api_url, json=api_request ,headers=api_headers).json()
@@ -98,9 +85,7 @@ class CheckUserView(MethodView):
                     }
 
                     return response, 201
-
                 else:
-                    # Usuario no encontrado, creemos un objeto ResponseCheckUser con el mensaje de usuario no encontrado y sin datos
                     response = ResponseCheckUser(
                         code="404",
                         message="Usuario inexistente",
@@ -108,12 +93,9 @@ class CheckUserView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-                    
                     return response, 404
                     
             except Exception as ex:
-
-                # En caso de error, creemos un objeto ResponseCheckUser con un mensaje de error genérico y sin datos
                 message = str(ex)
                 log = logging()
                 log.critical(
@@ -129,7 +111,6 @@ class CheckUserView(MethodView):
                 )
                 
             finally: 
-
                 end_time = default_timer()
                 message = f"end request: {function_name} - Procesada en : {round((end_time - start_time) * 1000)} milisegundos "
                 log = logging()

@@ -2,7 +2,6 @@ from swagger_server.resources.db import db
 from swagger_server.models.db.permission_role_model import Role
 from swagger_server.models.db.goals_model import Goals
 from swagger_server.utils.encrypt import encrypt_password
-from sqlalchemy.orm.exc import NoResultFound
 
 
 class User(db.Model):
@@ -67,18 +66,9 @@ class User(db.Model):
             "goals": goals_data,
             "sales_channel": self.sales_channel,
             "status": self.status,
-            "token_reset_password": self.token_reset_password,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
-    
-    @staticmethod
-    def get_user_by(code_email):
-        try:
-            result = User.query.filter_by(code_email=code_email).first()
-            return result
-        except NoResultFound:
-            return None
 
     def save(self):
         """
@@ -90,5 +80,12 @@ class User(db.Model):
         db.session.commit()
     
     def destroy(self):
-        db.session.delete(self)
+        db.session.expunge(self)  # Desvincular la instancia de la sesión
+
+        # Desvincular relaciones manualmente
+        self.role = None
+        self.goals = None
+        
+        user_to_delete = db.session.merge(self)  # Cargar la instancia desde la sesión
+        db.session.delete(user_to_delete)  # Usar la instancia cargada para eliminar
         db.session.commit()

@@ -26,3 +26,4 @@ from swagger_server.models.response_token_reset_password import ResponseTokenRes
 from swagger_server.models.response_token_reset_password_data import ResponseTokenResetPasswordData
 from swagger_server.models.signin_signup_user_data import SigninSignupUserData
 from swagger_server.models.user_data import UserData
+from swagger_server.models.response_delete_user import ResponseDeleteUser
