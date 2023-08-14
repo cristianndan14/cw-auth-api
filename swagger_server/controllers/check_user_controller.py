@@ -3,7 +3,6 @@ import requests
 
 from swagger_server.models.request_check_user import RequestCheckUser  # noqa: E501
 from swagger_server.models.response_check_user import ResponseCheckUser  # noqa: E501
-from swagger_server.models.check_user_data import CheckUserData
 
 from flask.views import MethodView
 

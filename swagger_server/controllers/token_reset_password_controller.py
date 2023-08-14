@@ -5,7 +5,6 @@ import secrets
 from swagger_server.models.request_token_reset_password import RequestTokenResetPassword  # noqa: E501
 from swagger_server.models.response_token_reset_password import ResponseTokenResetPassword  # noqa: E501
 from swagger_server.models.db.user_model import User
-from swagger_server.models.response_reset_password_data import ResponseResetPasswordData
 
 from flask.views import MethodView
 
@@ -13,7 +12,6 @@ from timeit import default_timer
 
 from swagger_server.utils.transactions.transaction import generate_internal_transaction_id
 from swagger_server.utils.logs.logging import log as logging
-from swagger_server.utils.encrypt import encrypt_password
 
 from swagger_server.config.access import access
 
@@ -58,7 +56,6 @@ class TokenResetPasswordView(MethodView):
                 user = User.query.filter_by(code_email=code_email).first()
 
                 if not user:
-                    
                     response = ResponseTokenResetPassword(
                         code=-1,
                         message="No existe usuario con el code_email ingresado.",
@@ -66,7 +63,6 @@ class TokenResetPasswordView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
                     return response, 404
                 
                 if user.token_reset_password is None:
@@ -118,16 +114,14 @@ class TokenResetPasswordView(MethodView):
                 response_email_notificaciones_api = requests.post(email_notificaciones_api_url, json=email_notificaciones_api_request, headers=email_notificaciones_api_headers).json()
 
                 if response_email_notificaciones_api:
-
                     response = ResponseTokenResetPassword(
                         code="200",
                         message="El token de recuperacion de contraseña, fue enviado a su mail",
-                        data= [],
+                        data=[],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
                 else:
-                    
                     response = ResponseTokenResetPassword(
                         code=-1,
                         message="ocurrio un problema con el service de notificaciones",
@@ -135,21 +129,9 @@ class TokenResetPasswordView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
                     return response, 400
-                    
-                """ data = {"token_reset_password": user.token_reset_password}
-
-                response = ResponseTokenResetPassword(
-                    code="200",
-                    message="Token de recuperacion de contraseña generado con éxito",
-                    data=data,
-                    internal_transaction_id=internal_transaction_id,
-                    external_transaction_id=external_transaction_id
-                ) """
 
             except Exception as ex:
-
                 message = str(ex)
                 log = logging()
                 log.critical(
@@ -165,7 +147,6 @@ class TokenResetPasswordView(MethodView):
                 )
             
             finally:
-
                 end_time = default_timer()
                 message = f"end request: {function_name} - Procesada en : {round((end_time - start_time) * 1000)} milisegundos "
                 log = logging()

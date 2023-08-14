@@ -1,5 +1,4 @@
 from swagger_server.models.response_delete_user import ResponseDeleteUser  # noqa: E501
-from swagger_server.models.user_data import UserData
 
 from flask.views import MethodView
 
@@ -38,8 +37,9 @@ class DeleteUserView(MethodView):
         log = self.log
 
         try:
+            print(code_email)
             user = User.query.filter_by(code_email=code_email).first()
-
+            print(user.to_json())
             if user:
                 user.destroy()
 

@@ -74,7 +74,7 @@ class RegisterUserView(MethodView):
                     response = ResponseRegisterUserByAdmin(
                         code="200",
                         message="Usuario creado exitosamente",
-                        data=code_email,
+                        data=user.to_json(),
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )

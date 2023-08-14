@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.register_user_by_admin_data import RegisterUserByAdminData  # noqa: F401,E501
+from swagger_server.models.user_data import UserData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +15,7 @@ class RequestRegisterUserByAdmin(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, channel: str=None, external_transaction_id: str=None, data: RegisterUserByAdminData=None):  # noqa: E501
+    def __init__(self, channel: str=None, external_transaction_id: str=None, data: UserData=None):  # noqa: E501
         """RequestRegisterUserByAdmin - a model defined in Swagger
 
         :param channel: The channel of this RequestRegisterUserByAdmin.  # noqa: E501
@@ -23,12 +23,12 @@ class RequestRegisterUserByAdmin(Model):
         :param external_transaction_id: The external_transaction_id of this RequestRegisterUserByAdmin.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this RequestRegisterUserByAdmin.  # noqa: E501
-        :type data: RegisterUserByAdminData
+        :type data: UserData
         """
         self.swagger_types = {
             'channel': str,
             'external_transaction_id': str,
-            'data': RegisterUserByAdminData
+            'data': UserData
         }
 
         self.attribute_map = {
@@ -98,22 +98,22 @@ class RequestRegisterUserByAdmin(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> RegisterUserByAdminData:
+    def data(self) -> UserData:
         """Gets the data of this RequestRegisterUserByAdmin.
 
 
         :return: The data of this RequestRegisterUserByAdmin.
-        :rtype: RegisterUserByAdminData
+        :rtype: UserData
         """
         return self._data
 
     @data.setter
-    def data(self, data: RegisterUserByAdminData):
+    def data(self, data: UserData):
         """Sets the data of this RequestRegisterUserByAdmin.
 
 
         :param data: The data of this RequestRegisterUserByAdmin.
-        :type data: RegisterUserByAdminData
+        :type data: UserData
         """
         if data is None:
             raise ValueError("Invalid value for `data`, must not be `None`")  # noqa: E501

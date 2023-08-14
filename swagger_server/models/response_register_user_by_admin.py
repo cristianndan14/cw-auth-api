@@ -6,7 +6,6 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.register_user_by_admin_data import RegisterUserByAdminData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +14,7 @@ class ResponseRegisterUserByAdmin(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: RegisterUserByAdminData=None):  # noqa: E501
+    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: object=None):  # noqa: E501
         """ResponseRegisterUserByAdmin - a model defined in Swagger
 
         :param code: The code of this ResponseRegisterUserByAdmin.  # noqa: E501
@@ -27,14 +26,14 @@ class ResponseRegisterUserByAdmin(Model):
         :param external_transaction_id: The external_transaction_id of this ResponseRegisterUserByAdmin.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this ResponseRegisterUserByAdmin.  # noqa: E501
-        :type data: RegisterUserByAdminData
+        :type data: object
         """
         self.swagger_types = {
             'code': str,
             'message': str,
             'internal_transaction_id': str,
             'external_transaction_id': str,
-            'data': RegisterUserByAdminData
+            'data': object
         }
 
         self.attribute_map = {
@@ -146,22 +145,22 @@ class ResponseRegisterUserByAdmin(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> RegisterUserByAdminData:
+    def data(self) -> object:
         """Gets the data of this ResponseRegisterUserByAdmin.
 
 
         :return: The data of this ResponseRegisterUserByAdmin.
-        :rtype: RegisterUserByAdminData
+        :rtype: object
         """
         return self._data
 
     @data.setter
-    def data(self, data: RegisterUserByAdminData):
+    def data(self, data: object):
         """Sets the data of this ResponseRegisterUserByAdmin.
 
 
         :param data: The data of this ResponseRegisterUserByAdmin.
-        :type data: RegisterUserByAdminData
+        :type data: object
         """
 
         self._data = data

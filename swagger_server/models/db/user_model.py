@@ -1,47 +1,45 @@
 from swagger_server.resources.db import db
 from swagger_server.models.db.permission_role_model import Role
-from swagger_server.models.db.goals_model import Goals
 from swagger_server.utils.encrypt import encrypt_password
 
 
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    city = db.Column(db.String(100))
     code_email = db.Column(db.String(100), index=True)
-    email = db.Column(db.String(100))
-    id_goal = db.Column(db.Integer, db.ForeignKey('goals.id_goal'))
+    status = db.Column(db.Boolean)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'))
-    leader = db.Column(db.Integer)
-    name = db.Column(db.String(100))
+    name = db.Column(db.String(50))
+    last_name = db.Column(db.String(50))
+    city = db.Column(db.String(100))
+    address = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    cellphone = db.Column(db.String(100))
+    department = db.Column(db.String(100))
+    identification_number = db.Column(db.String(50))
+    entry_date = db.Column(db.Date)
     password = db.Column(db.String(100))
-    phone = db.Column(db.String(100))
-    profile = db.Column(db.String(100))
-    sales_channel = db.Column(db.String(100))
-    status = db.Column(db.String(100))
     token_reset_password = db.Column(db.String(100))
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now())
 
     role = db.relationship(Role, backref=db.backref('users', lazy=True))
-    goals = db.relationship(Goals, backref=db.backref('users', lazy=True))
 
     def __init__(self, payload):
-        self.city = payload.get('city')
+        
         self.code_email = payload.get('code_email')
-        self.email = payload.get('email')
-        self.leader = payload.get('leader')
-        self.name = payload.get('name')
-        self.password = payload.get('password')
-        self.phone = payload.get('phone')
-        self.profile = payload.get('profile')
-        self.role_id = payload.get('role_id')
-        self.goals = payload.get('goals')
-        self.sales_channel = payload.get('sales_channel')
         self.status = payload.get('status')
-
+        self.role_id = payload.get('role_id')
+        self.name = payload.get('name')
+        self.last_name = payload.get('last_name')
+        self.city = payload.get('city')
+        self.address = payload.get('address')
+        self.email = payload.get('email')
+        self.cellphone = payload.get('cellphone')
+        self.department = payload.get('department')
+        self.identification_number = payload.get('identification_number')
+        self.entry_date = payload.get('entry_date')
+        self.password = payload.get('password')
+        
     def encrypt_password(self):
-        # Ciframos la contraseña solo si se proporciona una contraseña válida
         if self.password:
             self.password = encrypt_password(self.password)
 
@@ -51,23 +49,21 @@ class User(db.Model):
         :return: A dictionary with the keys and values of the user object.
         """
         role_data = self.role.to_json() if self.role else None
-        goals_data = self.goals.to_json() if self.goals else None
 
         return {
             "id": self.id,
-            "city": self.city,
             "code_email": self.code_email,
-            "email": self.email,
-            "leader": self.leader,
-            "name": self.name,
-            "phone": self.phone,
-            "profile": self.profile,
-            "role": role_data,
-            "goals": goals_data,
-            "sales_channel": self.sales_channel,
             "status": self.status,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "role": role_data,
+            "name": self.name,
+            "last_name": self.last_name,
+            "city": self.city,
+            "address": self.address,
+            "email": self.email,
+            "cellphone": self.cellphone,
+            "department": self.department,
+            "identification_number": self.identification_number,
+            "entry_date": self.entry_date,
         }
 
     def save(self):
@@ -80,12 +76,10 @@ class User(db.Model):
         db.session.commit()
     
     def destroy(self):
-        db.session.expunge(self)  # Desvincular la instancia de la sesión
+        db.session.expunge(self)
 
-        # Desvincular relaciones manualmente
         self.role = None
-        self.goals = None
         
-        user_to_delete = db.session.merge(self)  # Cargar la instancia desde la sesión
-        db.session.delete(user_to_delete)  # Usar la instancia cargada para eliminar
+        user_to_delete = db.session.merge(self)
+        db.session.delete(user_to_delete)
         db.session.commit()

@@ -2,7 +2,6 @@ import connexion
 
 from swagger_server.models.request_reset_password import RequestResetPassword  # noqa: E501
 from swagger_server.models.response_reset_password import ResponseResetPassword  # noqa: E501
-from swagger_server.models.response_reset_password_data import ResponseResetPasswordData
 from swagger_server.models.db.user_model import User
 
 from flask.views import MethodView
@@ -62,12 +61,10 @@ class ResetPasswordView(MethodView):
                     user.password = password
                     user.save()
 
-                    data = ResponseResetPasswordData(code_email=code_email)
-
                     response = ResponseResetPassword(
                         code="200",
                         message="Contraseña reestablecida exitosamente",
-                        data=data,
+                        data=[],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )

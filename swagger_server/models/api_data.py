@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.api_data_goals import ApiDataGoals  # noqa: F401,E501
+from swagger_server.models.goals_data import GoalsData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,11 +15,11 @@ class ApiData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, codVendor: str=None, identificationNumber: str=None, city: str=None, status: str=None, email: str=None, cellphone: str=None, goals: ApiDataGoals=None, salesChannel: str=None, leader: int=None):  # noqa: E501
+    def __init__(self, cod_vendor: str=None, identificationNumber: str=None, city: str=None, status: str=None, email: str=None, cellphone: str=None, goals: GoalsData=None, sales_channel: str=None, leader: int=None):  # noqa: E501
         """ApiData - a model defined in Swagger
 
-        :param codVendor: The codVendor of this ApiData.  # noqa: E501
-        :type codVendor: str
+        :param cod_vendor: The cod_vendor of this ApiData.  # noqa: E501
+        :type cod_vendor: str
         :param identificationNumber: The identificationNumber of this ApiData.  # noqa: E501
         :type identificationNumber: str
         :param city: The city of this ApiData.  # noqa: E501
@@ -31,43 +31,43 @@ class ApiData(Model):
         :param cellphone: The cellphone of this ApiData.  # noqa: E501
         :type cellphone: str
         :param goals: The goals of this ApiData.  # noqa: E501
-        :type goals: ApiDataGoals
-        :param salesChannel: The salesChannel of this ApiData.  # noqa: E501
-        :type salesChannel: str
+        :type goals: GoalsData
+        :param sales_channel: The sales_channel of this ApiData.  # noqa: E501
+        :type sales_channel: str
         :param leader: The leader of this ApiData.  # noqa: E501
         :type leader: int
         """
         self.swagger_types = {
-            'codVendor': str,
+            'cod_vendor': str,
             'identificationNumber': str,
             'city': str,
             'status': str,
             'email': str,
             'cellphone': str,
-            'goals': ApiDataGoals,
-            'salesChannel': str,
+            'goals': GoalsData,
+            'sales_channel': str,
             'leader': int
         }
 
         self.attribute_map = {
-            'codVendor': 'codVendor',
+            'cod_vendor': 'codVendor',
             'identificationNumber': 'identificationNumber',
             'city': 'city',
             'status': 'status',
             'email': 'email',
             'cellphone': 'cellphone',
             'goals': 'goals',
-            'salesChannel': 'salesChannel',
+            'sales_channel': 'salesChannel',
             'leader': 'leader'
         }
-        self._cod_vendor = codVendor
+        self._cod_vendor = cod_vendor
         self._identification_number = identificationNumber
         self._city = city
         self._status = status
         self._email = email
         self._cellphone = cellphone
         self._goals = goals
-        self._sales_channel = salesChannel
+        self._sales_channel = sales_channel
         self._leader = leader
 
     @classmethod
@@ -82,25 +82,25 @@ class ApiData(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def codVendor(self) -> str:
-        """Gets the codVendor of this ApiData.
+    def cod_vendor(self) -> str:
+        """Gets the cod_vendor of this ApiData.
 
 
-        :return: The codVendor of this ApiData.
+        :return: The cod_vendor of this ApiData.
         :rtype: str
         """
         return self._cod_vendor
 
-    @codVendor.setter
-    def codVendor(self, codVendor: str):
-        """Sets the codVendor of this ApiData.
+    @cod_vendor.setter
+    def cod_vendor(self, cod_vendor: str):
+        """Sets the cod_vendor of this ApiData.
 
 
-        :param codVendor: The codVendor of this ApiData.
-        :type codVendor: str
+        :param cod_vendor: The cod_vendor of this ApiData.
+        :type cod_vendor: str
         """
 
-        self._cod_vendor = codVendor
+        self._cod_vendor = cod_vendor
 
     @property
     def identificationNumber(self) -> str:
@@ -208,46 +208,46 @@ class ApiData(Model):
         self._cellphone = cellphone
 
     @property
-    def goals(self) -> ApiDataGoals:
+    def goals(self) -> GoalsData:
         """Gets the goals of this ApiData.
 
 
         :return: The goals of this ApiData.
-        :rtype: ApiDataGoals
+        :rtype: GoalsData
         """
         return self._goals
 
     @goals.setter
-    def goals(self, goals: ApiDataGoals):
+    def goals(self, goals: GoalsData):
         """Sets the goals of this ApiData.
 
 
         :param goals: The goals of this ApiData.
-        :type goals: ApiDataGoals
+        :type goals: GoalsData
         """
 
         self._goals = goals
 
     @property
-    def salesChannel(self) -> str:
-        """Gets the salesChannel of this ApiData.
+    def sales_channel(self) -> str:
+        """Gets the sales_channel of this ApiData.
 
 
-        :return: The salesChannel of this ApiData.
+        :return: The sales_channel of this ApiData.
         :rtype: str
         """
         return self._sales_channel
 
-    @salesChannel.setter
-    def salesChannel(self, salesChannel: str):
-        """Sets the salesChannel of this ApiData.
+    @sales_channel.setter
+    def sales_channel(self, sales_channel: str):
+        """Sets the sales_channel of this ApiData.
 
 
-        :param salesChannel: The salesChannel of this ApiData.
-        :type salesChannel: str
+        :param sales_channel: The sales_channel of this ApiData.
+        :type sales_channel: str
         """
 
-        self._sales_channel = salesChannel
+        self._sales_channel = sales_channel
 
     @property
     def leader(self) -> int:

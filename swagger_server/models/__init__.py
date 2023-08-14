@@ -4,9 +4,7 @@
 from __future__ import absolute_import
 # import models into model package
 from swagger_server.models.api_data import ApiData
-from swagger_server.models.api_data_goals import ApiDataGoals
-from swagger_server.models.check_user_data import CheckUserData
-from swagger_server.models.register_user_by_admin_data import RegisterUserByAdminData
+from swagger_server.models.goals_data import GoalsData
 from swagger_server.models.request_all_users import RequestAllUsers
 from swagger_server.models.request_check_user import RequestCheckUser
 from swagger_server.models.request_register_user_by_admin import RequestRegisterUserByAdmin
@@ -17,13 +15,12 @@ from swagger_server.models.request_token_reset_password import RequestTokenReset
 from swagger_server.models.reset_password_data import ResetPasswordData
 from swagger_server.models.response_all_users import ResponseAllUsers
 from swagger_server.models.response_check_user import ResponseCheckUser
+from swagger_server.models.response_delete_user import ResponseDeleteUser
 from swagger_server.models.response_register_user_by_admin import ResponseRegisterUserByAdmin
 from swagger_server.models.response_reset_password import ResponseResetPassword
-from swagger_server.models.response_reset_password_data import ResponseResetPasswordData
 from swagger_server.models.response_signin import ResponseSignin
 from swagger_server.models.response_signup import ResponseSignup
 from swagger_server.models.response_token_reset_password import ResponseTokenResetPassword
-from swagger_server.models.response_token_reset_password_data import ResponseTokenResetPasswordData
-from swagger_server.models.signin_signup_user_data import SigninSignupUserData
+from swagger_server.models.signin_data import SigninData
+from swagger_server.models.signup_data import SignupData
 from swagger_server.models.user_data import UserData
-from swagger_server.models.response_delete_user import ResponseDeleteUser

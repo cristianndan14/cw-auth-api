@@ -7,7 +7,7 @@ from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
 from swagger_server.models.api_data import ApiData  # noqa: F401,E501
-from swagger_server.models.signin_signup_user_data import SigninSignupUserData  # noqa: F401,E501
+from swagger_server.models.signup_data import SignupData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -16,7 +16,7 @@ class RequestSignup(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, channel: str=None, external_transaction_id: str=None, api_data: ApiData=None, data: SigninSignupUserData=None):  # noqa: E501
+    def __init__(self, channel: str=None, external_transaction_id: str=None, api_data: ApiData=None, data: SignupData=None):  # noqa: E501
         """RequestSignup - a model defined in Swagger
 
         :param channel: The channel of this RequestSignup.  # noqa: E501
@@ -26,13 +26,13 @@ class RequestSignup(Model):
         :param api_data: The api_data of this RequestSignup.  # noqa: E501
         :type api_data: ApiData
         :param data: The data of this RequestSignup.  # noqa: E501
-        :type data: SigninSignupUserData
+        :type data: SignupData
         """
         self.swagger_types = {
             'channel': str,
             'external_transaction_id': str,
             'api_data': ApiData,
-            'data': SigninSignupUserData
+            'data': SignupData
         }
 
         self.attribute_map = {
@@ -125,22 +125,22 @@ class RequestSignup(Model):
         self._api_data = api_data
 
     @property
-    def data(self) -> SigninSignupUserData:
+    def data(self) -> SignupData:
         """Gets the data of this RequestSignup.
 
 
         :return: The data of this RequestSignup.
-        :rtype: SigninSignupUserData
+        :rtype: SignupData
         """
         return self._data
 
     @data.setter
-    def data(self, data: SigninSignupUserData):
+    def data(self, data: SignupData):
         """Sets the data of this RequestSignup.
 
 
         :param data: The data of this RequestSignup.
-        :type data: SigninSignupUserData
+        :type data: SignupData
         """
         if data is None:
             raise ValueError("Invalid value for `data`, must not be `None`")  # noqa: E501

@@ -18,7 +18,7 @@ class TestDeleteUserController(BaseTestCase):
         Eliminar usuario.
         """
         response = self.client.open(
-            '/users/{+code_email}'.format(code_email='code_email_example'),
+            '/users/{code_email}'.format(code_email='code_email_example'),
             method='DELETE')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))

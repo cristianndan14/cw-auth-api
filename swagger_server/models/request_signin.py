@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.signin_signup_user_data import SigninSignupUserData  # noqa: F401,E501
+from swagger_server.models.signin_data import SigninData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +15,7 @@ class RequestSignin(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, channel: str=None, external_transaction_id: str=None, data: SigninSignupUserData=None):  # noqa: E501
+    def __init__(self, channel: str=None, external_transaction_id: str=None, data: SigninData=None):  # noqa: E501
         """RequestSignin - a model defined in Swagger
 
         :param channel: The channel of this RequestSignin.  # noqa: E501
@@ -23,12 +23,12 @@ class RequestSignin(Model):
         :param external_transaction_id: The external_transaction_id of this RequestSignin.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this RequestSignin.  # noqa: E501
-        :type data: SigninSignupUserData
+        :type data: SigninData
         """
         self.swagger_types = {
             'channel': str,
             'external_transaction_id': str,
-            'data': SigninSignupUserData
+            'data': SigninData
         }
 
         self.attribute_map = {
@@ -98,22 +98,22 @@ class RequestSignin(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> SigninSignupUserData:
+    def data(self) -> SigninData:
         """Gets the data of this RequestSignin.
 
 
         :return: The data of this RequestSignin.
-        :rtype: SigninSignupUserData
+        :rtype: SigninData
         """
         return self._data
 
     @data.setter
-    def data(self, data: SigninSignupUserData):
+    def data(self, data: SigninData):
         """Sets the data of this RequestSignin.
 
 
         :param data: The data of this RequestSignin.
-        :type data: SigninSignupUserData
+        :type data: SigninData
         """
         if data is None:
             raise ValueError("Invalid value for `data`, must not be `None`")  # noqa: E501

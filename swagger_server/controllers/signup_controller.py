@@ -1,9 +1,11 @@
 import connexion
 
+from datetime import datetime
+
 from swagger_server.models.request_signup import RequestSignup  # noqa: E501
 from swagger_server.models.response_signup import ResponseSignup  # noqa: E501
 from swagger_server.models.db.user_model import User
-from swagger_server.models.user_data import UserData
+from swagger_server.models.db.permission_role_model import Role
 
 from flask.views import MethodView
 
@@ -49,56 +51,38 @@ class SignupView(MethodView):
                 internal_transaction_id, external_transaction_id, function_name, package_name, message)
 
             try:
-
                 request = body.data.to_dict()
                 request_api = body.api_data.to_dict()
 
                 code_email = request.get('code_email')
                 password = request.get('password')
                 name = request.get('name')
-
+                last_name = request.get('last_name')
 
                 if name:
-
-                    new_vendor = {
+                    new_vendor = User({
                         "code_email": code_email,
-                        "profile": "vendor",
-                        "name": name,
-                        "phone": request_api.get("cellphone"),
-                        "email": request_api.get("email"),
-                        "city": request_api.get("city"),
-                        "status": request_api.get("status"),
+                        "status": 1 if request_api.get("status") == "ACTIVO" else None,
                         "role_id": 1,
-                        "leader": request_api.get("leader"),
-                        "sales_channel": request_api.get("salesChannel"),                      
+                        "name": name,
+                        "last_name": last_name,
+                        "city": request_api.get("city"),
+                        "email": request_api.get("email"),
+                        "cellphone": request_api.get("cellphone"),
+                        "identification_number": request_api.get("identificationNumber"),
+                        "entry_date": datetime.utcnow().date(),    
                         "password": password
-                    }
-                    
-                    add_vendor = User(new_vendor)
-                    
-                    add_vendor.save()
-
-                    data = UserData(
-                        code_email=add_vendor.code_email,
-                        profile=add_vendor.profile,
-                        name=add_vendor.name,
-                        phone=add_vendor.phone,
-                        email=add_vendor.email,
-                        city=add_vendor.city,
-                        status=add_vendor.status,
-                        role_id=add_vendor.role_id,
-                        leader=add_vendor.leader,
-                        sales_channel=add_vendor.sales_channel
-                    )
+                    })
+                    print(new_vendor)
+                    new_vendor.save()
                     
                     response = ResponseSignup(
                         code="200",
                         message="Vendedor registrado exitosamente.",
-                        data= data,
+                        data=new_vendor.to_json(),
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
                 else:
                     response = ResponseSignup(
                         code=-1,
@@ -107,11 +91,9 @@ class SignupView(MethodView):
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
                     return response, 400
 
             except Exception as ex:
-
                 message = str(ex)
                 log = logging()
                 log.critical(
@@ -125,9 +107,7 @@ class SignupView(MethodView):
                     internal_transaction_id=internal_transaction_id,
                     external_transaction_id=external_transaction_id
                 )
-            
             finally:
-
                 end_time = default_timer()
                 message = f"end request: {function_name} - Procesada en : {round((end_time - start_time) * 1000)} milisegundos "
                 log = logging()

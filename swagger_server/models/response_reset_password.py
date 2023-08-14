@@ -6,7 +6,6 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.response_reset_password_data import ResponseResetPasswordData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +14,7 @@ class ResponseResetPassword(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: ResponseResetPasswordData=None):  # noqa: E501
+    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: object=None):  # noqa: E501
         """ResponseResetPassword - a model defined in Swagger
 
         :param code: The code of this ResponseResetPassword.  # noqa: E501
@@ -27,14 +26,14 @@ class ResponseResetPassword(Model):
         :param external_transaction_id: The external_transaction_id of this ResponseResetPassword.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this ResponseResetPassword.  # noqa: E501
-        :type data: ResponseResetPasswordData
+        :type data: object
         """
         self.swagger_types = {
             'code': str,
             'message': str,
             'internal_transaction_id': str,
             'external_transaction_id': str,
-            'data': ResponseResetPasswordData
+            'data': object
         }
 
         self.attribute_map = {
@@ -146,22 +145,22 @@ class ResponseResetPassword(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> ResponseResetPasswordData:
+    def data(self) -> object:
         """Gets the data of this ResponseResetPassword.
 
 
         :return: The data of this ResponseResetPassword.
-        :rtype: ResponseResetPasswordData
+        :rtype: object
         """
         return self._data
 
     @data.setter
-    def data(self, data: ResponseResetPasswordData):
+    def data(self, data: object):
         """Sets the data of this ResponseResetPassword.
 
 
         :param data: The data of this ResponseResetPassword.
-        :type data: ResponseResetPasswordData
+        :type data: object
         """
 
         self._data = data

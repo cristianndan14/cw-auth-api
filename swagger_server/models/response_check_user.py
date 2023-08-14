@@ -6,7 +6,6 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.check_user_data import CheckUserData  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +14,7 @@ class ResponseCheckUser(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: CheckUserData=None):  # noqa: E501
+    def __init__(self, code: str=None, message: str=None, internal_transaction_id: str=None, external_transaction_id: str=None, data: object=None):  # noqa: E501
         """ResponseCheckUser - a model defined in Swagger
 
         :param code: The code of this ResponseCheckUser.  # noqa: E501
@@ -27,14 +26,14 @@ class ResponseCheckUser(Model):
         :param external_transaction_id: The external_transaction_id of this ResponseCheckUser.  # noqa: E501
         :type external_transaction_id: str
         :param data: The data of this ResponseCheckUser.  # noqa: E501
-        :type data: CheckUserData
+        :type data: object
         """
         self.swagger_types = {
             'code': str,
             'message': str,
             'internal_transaction_id': str,
             'external_transaction_id': str,
-            'data': CheckUserData
+            'data': object
         }
 
         self.attribute_map = {
@@ -146,22 +145,22 @@ class ResponseCheckUser(Model):
         self._external_transaction_id = external_transaction_id
 
     @property
-    def data(self) -> CheckUserData:
+    def data(self) -> object:
         """Gets the data of this ResponseCheckUser.
 
 
         :return: The data of this ResponseCheckUser.
-        :rtype: CheckUserData
+        :rtype: object
         """
         return self._data
 
     @data.setter
-    def data(self, data: CheckUserData):
+    def data(self, data: object):
         """Sets the data of this ResponseCheckUser.
 
 
         :param data: The data of this ResponseCheckUser.
-        :type data: CheckUserData
+        :type data: object
         """
 
         self._data = data

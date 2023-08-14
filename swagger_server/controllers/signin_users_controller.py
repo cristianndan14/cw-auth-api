@@ -3,7 +3,6 @@ import connexion
 from swagger_server.models.request_signin import RequestSignin  # noqa: E501
 from swagger_server.models.response_signin import ResponseSignin  # noqa: E501
 from swagger_server.models.db.user_model import User
-from swagger_server.models.user_data import UserData
 
 from flask.views import MethodView
 
@@ -54,33 +53,17 @@ class SigninView(MethodView):
 
                 code_email = request.get('code_email')
                 password = encrypt_password(request.get('password'))
-
+                
                 user = User.query.filter_by(code_email=code_email).first()
-
+                
                 if user.password == password:
-
-                    data = UserData(
-                        code_email=user.code_email,
-                        profile=user.profile,
-                        name=user.name,
-                        phone=user.phone,
-                        email=user.email,
-                        city=user.city,
-                        status=user.status,
-                        role_id=user.role_id,
-                        leader=user.leader,
-                        sales_channel=user.sales_channel,
-                        id_goal=user.id_goal
-                    )
-
                     response = ResponseSignin(
                         code="200",
                         message="Inicio de sesión exitoso.",
-                        data=data,
+                        data=user.to_json(),
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
-
                 else:
                     response = ResponseSignin(
                     code="400",
@@ -88,11 +71,10 @@ class SigninView(MethodView):
                     data= [],
                     internal_transaction_id=internal_transaction_id,
                     external_transaction_id=external_transaction_id
-                )
+                    )
                     return response, 400
                 
             except Exception as ex:
-
                 message = str(ex)
                 log = logging()
                 log.critical(
@@ -108,7 +90,6 @@ class SigninView(MethodView):
                 )
             
             finally:
-
                 end_time = default_timer()
                 message = f"end request: {function_name} - Procesada en : {round((end_time - start_time) * 1000)} milisegundos "
                 log = logging()
