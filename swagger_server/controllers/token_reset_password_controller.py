@@ -15,13 +15,13 @@ from swagger_server.utils.logs.logging import log as logging
 
 from swagger_server.config.access import access
 
+
 class TokenResetPasswordView(MethodView):
 
     def __init__(self):
         self.log = logging()
         self.msg_log = 'ITID: %r - ETID: %r - Funcion: %r - Paquete : %r - Mensaje: %r '
         self.msg_log_time = 'ITID: %r - ETID: %r - Funcion: %r - Paquete : %r - Mensaje: Fin de la transacción, procesada en : %r milisegundos'
-
 
     def token_reset_password(self):  # noqa: E501
         """Generar token para resetear password
@@ -59,7 +59,7 @@ class TokenResetPasswordView(MethodView):
                     response = ResponseTokenResetPassword(
                         code=-1,
                         message="No existe usuario con el code_email ingresado.",
-                        data= [],
+                        data=[],
                         internal_transaction_id=internal_transaction_id,
                         external_transaction_id=external_transaction_id
                     )
@@ -75,6 +75,17 @@ class TokenResetPasswordView(MethodView):
                 token_xtrim_api_request = token_xtrim_api.get("REQUEST")
 
                 response_token_xtrim_api = requests.post(token_xtrim_api_url, json=token_xtrim_api_request).json()
+
+                if response_token_xtrim_api.get("code") != 0:
+                    response = ResponseTokenResetPassword(
+                        code=-1,
+                        message="ocurrio un problema con el service de autenticacion",
+                        data=[],
+                        internal_transaction_id=internal_transaction_id,
+                        external_transaction_id=external_transaction_id
+                    )
+                    return response, 400
+                
                 token_xtrim = response_token_xtrim_api.get("data", {}).get("token")
 
                 email_notificaciones_api = access().get("SERVICES").get("EMAIL_NOTIFICACIONES")
@@ -112,8 +123,8 @@ class TokenResetPasswordView(MethodView):
                 }
 
                 response_email_notificaciones_api = requests.post(email_notificaciones_api_url, json=email_notificaciones_api_request, headers=email_notificaciones_api_headers).json()
-
-                if response_email_notificaciones_api:
+                
+                if response_email_notificaciones_api.get("code") == "0":
                     response = ResponseTokenResetPassword(
                         code="200",
                         message="El token de recuperacion de contraseña, fue enviado a su mail",
@@ -145,6 +156,7 @@ class TokenResetPasswordView(MethodView):
                     internal_transaction_id=internal_transaction_id,
                     external_transaction_id=external_transaction_id
                 )
+                return response, 500
             
             finally:
                 end_time = default_timer()

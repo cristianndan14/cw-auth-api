@@ -12,6 +12,7 @@ from swagger_server.models.request_reset_password import RequestResetPassword
 from swagger_server.models.request_signin import RequestSignin
 from swagger_server.models.request_signup import RequestSignup
 from swagger_server.models.request_token_reset_password import RequestTokenResetPassword
+from swagger_server.models.request_update_user import RequestUpdateUser
 from swagger_server.models.reset_password_data import ResetPasswordData
 from swagger_server.models.response_all_users import ResponseAllUsers
 from swagger_server.models.response_check_user import ResponseCheckUser
@@ -21,6 +22,7 @@ from swagger_server.models.response_reset_password import ResponseResetPassword
 from swagger_server.models.response_signin import ResponseSignin
 from swagger_server.models.response_signup import ResponseSignup
 from swagger_server.models.response_token_reset_password import ResponseTokenResetPassword
+from swagger_server.models.response_update_user import ResponseUpdateUser
 from swagger_server.models.signin_data import SigninData
 from swagger_server.models.signup_data import SignupData
 from swagger_server.models.user_data import UserData
