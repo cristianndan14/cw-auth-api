@@ -1,8 +1,8 @@
 import connexion
 
 from swagger_server.models.request_register_user_by_admin import RequestRegisterUserByAdmin  # noqa: E501
-from swagger_server.models.response_register_user_by_admin import ResponseRegisterUserByAdmin  # noqa: E501
-from swagger_server.models.db.user_model import User
+from swagger_server.uses_cases.register_user_uses_cases import RegisterUserUseCase
+from swagger_server.repository.register_user_repository import RegisterUserRepository
 
 from flask.views import MethodView
 
@@ -10,15 +10,19 @@ from timeit import default_timer
 
 from swagger_server.utils.transactions.transaction import generate_internal_transaction_id
 from swagger_server.utils.logs.logging import log as logging
+from swagger_server.resources.db import db
 
 
 class RegisterUserView(MethodView):
 
     def __init__(self):
-        self.log = logging()
+        log = logging()
+        mysql = db
+        self.log = log
         self.msg_log = 'ITID: %r - ETID: %r - Funcion: %r - Paquete : %r - Mensaje: %r '
         self.msg_log_time = 'ITID: %r - ETID: %r - Funcion: %r - Paquete : %r - Mensaje: Fin de la transacción, procesada en : %r milisegundos'
-    
+        register_user_repository = RegisterUserRepository(mysql, log)
+        self.register_user_use_case = RegisterUserUseCase(register_user_repository, log)    
     
     def register_user(self):  # noqa: E501
         """Registrar usuario
@@ -30,87 +34,23 @@ class RegisterUserView(MethodView):
 
         :rtype: ResponseRegisterUserByAdmin
         """
-        start_time = default_timer()
         response = ""
         internal_transaction_id = str(generate_internal_transaction_id())
         function_name = "register_user"
         package_name = __name__
-        log = self.log
+        log = logging()
+        start_time = default_timer()
 
         if connexion.request.is_json:
-
             body = RequestRegisterUserByAdmin.from_dict(connexion.request.get_json())
-
             external_transaction_id = body.external_transaction_id
             message = f"start request: {function_name}"
             log.info(
                 self.msg_log,
                 internal_transaction_id, external_transaction_id, function_name, package_name, message)
         
-            try:
+            response = self.register_user_use_case.new_user(body, internal_transaction_id)
 
-                new_user = body.data.to_dict()
-                code_email = new_user.get('code_email')
-                
-                user_exist = User.query.filter_by(code_email=code_email).first()
-
-                if user_exist:
-                    
-                    response = ResponseRegisterUserByAdmin(
-                        code="400",
-                        message=f"Ya existe un usuario con el code_email {code_email}",
-                        data= [],
-                        internal_transaction_id=internal_transaction_id,
-                        external_transaction_id=external_transaction_id
-                    )
-
-                    return response, 400
-
-                if code_email is not None:
-
-                    user = User(new_user)
-                    user.save()
-
-                    response = ResponseRegisterUserByAdmin(
-                        code="200",
-                        message="Usuario creado exitosamente",
-                        data=user.to_json(),
-                        internal_transaction_id=internal_transaction_id,
-                        external_transaction_id=external_transaction_id
-                    )
-                else:
-                    response = ResponseRegisterUserByAdmin(
-                        code="400",
-                        message="Para crear un usuario, necesita registrar un code_email",
-                        internal_transaction_id=internal_transaction_id,
-                        external_transaction_id=external_transaction_id
-                    )
-
-                    return response, 400
-
-            except Exception as ex:
-
-                message = str(ex)
-                log = logging()
-                log.critical(
-                    self.msg_log,
-                    internal_transaction_id, external_transaction_id, function_name, package_name, message)
-                
-                response = ResponseRegisterUserByAdmin(
-                    code=-1,
-                    message=message,
-                    data= [],
-                    internal_transaction_id=internal_transaction_id,
-                    external_transaction_id=external_transaction_id
-                )
-
-            finally:
-
-                end_time = default_timer()
-                message = f"end request: {function_name} - Procesada en : {round((end_time - start_time) * 1000)} milisegundos "
-                log = logging()
-                log.info(
-                    self.msg_log,
-                    internal_transaction_id, external_transaction_id, function_name, package_name, message)
-        
-        return response
+            end_time = default_timer()
+            log.info("ITID: %r - ETID: %r - Funcion: %r - Paquete : %r - Mensaje: Fin de la transacción, procesada en : %r milisegundos", internal_transaction_id, body.external_transaction_id, f"{function_name}", __name__, round((end_time-start_time)*1000))
+            return response
