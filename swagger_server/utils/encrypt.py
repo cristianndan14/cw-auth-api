@@ -5,10 +5,11 @@ from swagger_server.config.access import access
 
 config = access()
 
+
 def encrypt_password(password: str):
-    bytes = password.encode('utf-8')
+    bytes_ = password.encode('utf-8')
     salt = config.get('SALT').encode('utf-8')
-    return bcrypt.hashpw(bytes, salt).decode()
+    return bcrypt.hashpw(bytes_, salt).decode()
 
 
 def generate_token(user_id: int):

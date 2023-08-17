@@ -19,7 +19,7 @@ class ResetPasswordUseCase:
 
             if user is None:
                 response = ResponseResetPassword(
-                    code=-1,
+                    code=1,
                     message="El usuario ingresado no existe.",
                     data=[],
                     internal_transaction_id=internal_transaction_id,
@@ -29,7 +29,7 @@ class ResetPasswordUseCase:
             
             if user.token_reset_password != request.get('token'):
                 response = ResponseResetPassword(
-                    code=-1,
+                    code=1,
                     message="El token ingresado es inválido.",
                     data=[],
                     internal_transaction_id=internal_transaction_id,
@@ -40,9 +40,9 @@ class ResetPasswordUseCase:
             change_password = self.reset_password_repository.change_password(user, request.get('password'), internal_transaction_id, body.external_transaction_id)
 
             response = ResponseResetPassword(
-                code="200",
-                message="Contraseña reestablecida exitosamente",
-                data=[],
+                code=0,
+                message="Contraseña reestablecida exitosamente.",
+                data=change_password,
                 internal_transaction_id=internal_transaction_id,
                 external_transaction_id=body.external_transaction_id
             )
@@ -50,7 +50,7 @@ class ResetPasswordUseCase:
             
         except Exception as ex:
             response = ResponseResetPassword(
-                code=-1,
+                code=1,
                 message=str(ex),
                 data=[],
                 internal_transaction_id=internal_transaction_id,

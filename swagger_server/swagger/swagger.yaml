@@ -59,8 +59,6 @@ paths:
                 $ref: '#/components/schemas/ResponseUpdateUser'
         "400":
           description: Bad Request
-      security: 
-      - ApiKeyAuth: []
       x-openapi-router-controller: swagger_server.controllers.update_user_controller.UpdateUserView
     delete:
       tags:
@@ -86,8 +84,6 @@ paths:
                 $ref: '#/components/schemas/ResponseDeleteUser'
         "404":
           description: User invalid
-      security: 
-      - ApiKeyAuth: []
       x-openapi-router-controller: swagger_server.controllers.delete_user_controller.DeleteUserView
   /checkUser:
     post:
@@ -154,8 +150,6 @@ paths:
                 $ref: '#/components/schemas/ResponseRegisterUserByAdmin'
         "400":
           description: Invalid data
-      security: 
-      - ApiKeyAuth: []
       x-openapi-router-controller: swagger_server.controllers.register_user_controller.RegisterUserView
   /signin:
     post:
@@ -695,10 +689,3 @@ components:
         internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
         externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
         message: Usuario registrado exitosamente
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      name: API-KEY
-      in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key_auth
-
