@@ -21,7 +21,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 RUN mkdir -p /usr/src/app/logs
 COPY . /usr/src/app
 
-EXPOSE 5001
+EXPOSE 2103
 
 ENTRYPOINT ["python3"]
 CMD ["-m", "swagger_server"]

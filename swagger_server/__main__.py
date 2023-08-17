@@ -19,7 +19,7 @@ def main():
     app.app.config["SQLALCHEMY_ENGINE_OPTIONS"] = config.get("SQLALCHEMY_ENGINE_OPTIONS")
     db.init_app(app.app)
     CORS(app.app, resources={r"/*": {"origins": "*"}})
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=2103, debug=True)
 
 
 if __name__ == '__main__':
