@@ -1,6 +1,0 @@
-projectKey=xtrim-auth-api
-serverUrl=https://xtrim.nextsign.ec/sonar
-serverVersion=10.1.0.73491
-dashboardUrl=https://xtrim.nextsign.ec/sonar/dashboard?id=xtrim-auth-api
-ceTaskId=AYoJdxeYGjn1doKTRvGS
-ceTaskUrl=https://xtrim.nextsign.ec/sonar/api/ce/task?id=AYoJdxeYGjn1doKTRvGS
