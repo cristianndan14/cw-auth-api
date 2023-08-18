@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: auth-ms
+  title: auth-api
   description: |
     Authentication microservice
   version: 1.0.0
 servers:
-- url: /rest/auth-ms/v1.0/
+- url: /rest/auth-api/v1.0/
 paths:
   /allUsers:
     post:
