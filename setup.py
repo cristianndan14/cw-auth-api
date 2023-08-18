@@ -20,10 +20,10 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="auth-ms",
+    description="auth-api",
     author_email="",
     url="",
-    keywords=["Swagger", "auth-ms"],
+    keywords=["Swagger", "auth-api"],
     install_requires=REQUIRES,
     packages=find_packages(),
     package_data={'': ['swagger/swagger.yaml']},

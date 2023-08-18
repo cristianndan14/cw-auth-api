@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: auth-ms
+  title: auth-api
   description: |
     Authentication microservice
   version: 1.0.0
 servers:
-- url: /rest/auth-ms/v1.0/
+- url: /rest/auth-api/v1.0/
 paths:
   /allUsers:
     post:
@@ -689,10 +689,3 @@ components:
         internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
         externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
         message: Usuario registrado exitosamente
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      name: API-KEY
-      in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_ApiKeyAuth
-
