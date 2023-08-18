@@ -72,5 +72,5 @@ target/
 .ipynb_checkpoints
 
 #Sonarqube
-.scannerwork
+.scannerwork/
 sonar-project.properties
