@@ -48,7 +48,6 @@ def get_request(internal_transaction_id, external_transaction_id, base_url, endp
         package_name = __name__
         log = logging()
         log.critical(msg_log, internal_transaction_id, external_transaction_id, function_name, package_name, message)
-        return {"code":1, "message": message, "exception": ex}
 
 
 def get_form_request(internal_transaction_id, external_transaction_id, base_url, endpoint, method, headers, data,
