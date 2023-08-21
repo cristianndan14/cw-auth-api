@@ -13,7 +13,7 @@ class TokenResetPasswordService:
     def get_token_xtrim(self, internal_transaction_id, external_transaction_id):
         try:
             endpoint = ""
-            response = consult_request.get_request(
+            response_service = consult_request.get_request(
                 internal_transaction_id,
                 external_transaction_id,
                 self.service_get_token_xtrim["base_url"],
@@ -23,8 +23,15 @@ class TokenResetPasswordService:
                 self.service_get_token_xtrim["data"],
                 payload=None
             )
-            token_xtrim = response.json()["data"]["token"]
-            return token_xtrim
+            response_service_json = response_service.json()
+            response = {
+                "code": response_service_json.get("code"),
+                "message": response_service_json.get("message"),
+                "data": response_service_json.get("data"),
+                "internal_transaction_id": internal_transaction_id,
+                "external_transaction_id": external_transaction_id
+            }
+            return response
         except Exception as ex:
             return {"error": str(ex), "code": 500}
     
