@@ -34,7 +34,7 @@ class TokenResetPasswordUseCase:
                 save_token = self.user_repository.create_token(user, token_reset_password, internal_transaction_id, body.external_transaction_id)
             
             response_token_xtrim = self.token_reset_password_service.get_token_xtrim(internal_transaction_id, body.external_transaction_id)
-            #print(response_token_xtrim)
+            print(response_token_xtrim)
             if response_token_xtrim.get("code") != 0:
                 response = ResponseTokenResetPassword(
                     code=response_token_xtrim.get("code"),

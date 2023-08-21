@@ -24,6 +24,8 @@ class TokenResetPasswordService:
                 payload=None
             )
             response_service_json = response_service.json()
+            if response_service_json.get("exception"):
+                return response_service_json
             response = {
                 "code": response_service_json.get("code"),
                 "message": response_service_json.get("message"),
