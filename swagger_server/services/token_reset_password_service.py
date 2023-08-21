@@ -23,7 +23,6 @@ class TokenResetPasswordService:
                 self.service_get_token_xtrim["data"],
                 payload=None
             )
-            print(response_service)
             response_service_json = response_service.json()
 
             response = {
@@ -35,7 +34,7 @@ class TokenResetPasswordService:
             }
             return response
         except Exception as ex:
-            return {"message": str(ex), "code": 1, "data":["asdasd"]}
+            return {"message": type(ex), "code": 12}
     
     def send_email_recovery_token(self, token_xtrim, recovery_token, email, internal_transaction_id, external_transaction_id):
         try:
