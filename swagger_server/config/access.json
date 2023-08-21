@@ -55,9 +55,9 @@
         "TOKEN_XTRIM": {
             "URL": "https://apixdev.grupotvcable.com/rest/token-api/v1.0/generate",
             "REQUEST": {
-                "channel": "string",
-                "key": "YXBpbV9pbmdyZXNvX2NvbnRyYXRvOjcxYjI5NWNiLTZkZTUtNDFmMy05OGQ0LTE5ZTI4ZTc4MTFlYg==",
-                "realm": "realm-ecommerce-IngresoContrato",
+                "channel": "ingresocontratos",
+                "key": "YXBpbV9pbmdyZXNvY29udHJhdG86YWMxZDU5NzEtNmEzMy00MzRhLWEyOWUtMTVjZTJkMDYyOWNj",
+                "realm": "realm-ecommerce-IngresodeContrato",
                 "type": "Basic"
             },
             "METHOD": "POST"

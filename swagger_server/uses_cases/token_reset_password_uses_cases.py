@@ -34,7 +34,7 @@ class TokenResetPasswordUseCase:
             save_token = self.user_repository.create_token(user, token_reset_password, internal_transaction_id, body.external_transaction_id)
         
         token_xtrim = self.token_reset_password_service.get_token_xtrim(internal_transaction_id, body.external_transaction_id)
-        
+        #print(token_xtrim)
         if not token_xtrim:
             response = ResponseTokenResetPassword(
                 code=-1,
@@ -46,7 +46,7 @@ class TokenResetPasswordUseCase:
             return response, 400
         
         send_recovery_token = self.token_reset_password_service.send_email_recovery_token(token_xtrim, user.token_reset_password, user.email, internal_transaction_id, body.external_transaction_id)
-    
+        #print(send_recovery_token)
         if not send_recovery_token:
             response = ResponseTokenResetPassword(
                 code=-1,
