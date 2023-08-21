@@ -35,8 +35,7 @@ class TokenResetPasswordService:
             }
             return response
         except Exception as ex:
-            print(f"estas en el except de service token: {ex}")
-            return {"message": str(ex), "code": 1}
+            return {"message": str(ex), "code": 1, "data":["asdasd"]}
     
     def send_email_recovery_token(self, token_xtrim, recovery_token, email, internal_transaction_id, external_transaction_id):
         try:
