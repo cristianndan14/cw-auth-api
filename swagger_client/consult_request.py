@@ -1,4 +1,5 @@
 from swagger_server.utils.logs.logging import log as logging
+from swagger_server.custom_http import CustomHttpAdapter, get_custom_session
 import requests
 
 from requests import ConnectTimeout
@@ -26,7 +27,10 @@ def get_request(internal_transaction_id, external_transaction_id, base_url, endp
         url = f"{base_url}{endpoint}"
         log.info(msg_log, internal_transaction_id, external_transaction_id, "get_request", __name__, "inicio consumo de reqquest")
         
-        response = requests.request(method, url, headers=headers, json=data, params=payload, timeout=(30, 30))
+        custom_session = get_custom_session()
+        response = custom_session.request(method, url, headers=headers, json=data, params=payload, timeout=(30, 30))
+
+        #response = requests.request(method, url, headers=headers, json=data, params=payload, timeout=(30, 30))
         log.info(msg_log, internal_transaction_id, external_transaction_id, "get_request", __name__, "fin consumo de reqquest")
 
         message = f"ejecucion request baseurl: {base_url} method: {method} status_code:{response.status_code}"
@@ -70,7 +74,11 @@ def get_form_request(internal_transaction_id, external_transaction_id, base_url,
     try:
 
         url = f"{base_url}{endpoint}"
-        response = requests.request(method, url, headers=headers, params=payload, timeout=(30, 30), data=data)
+
+        custom_session = get_custom_session()
+        response = custom_session.request(method, url, headers=headers, params=payload, timeout=(30, 30), data=data)
+        
+        #response = requests.request(method, url, headers=headers, params=payload, timeout=(30, 30), data=data)
 
         message = f"ejecucion request baseurl: {base_url} method: {method} status_code:{response.status_code}"
         function_name = "get_form_request"
