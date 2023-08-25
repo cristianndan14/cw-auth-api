@@ -15,13 +15,13 @@ class ApiData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, cod_vendor: str=None, identificationNumber: str=None, city: str=None, status: str=None, email: str=None, cellphone: str=None, goals: GoalsData=None, sales_channel: str=None, leader: int=None):  # noqa: E501
+    def __init__(self, cod_vendor: str=None, identification_number: str=None, city: str=None, status: str=None, email: str=None, cellphone: str=None, goals: GoalsData=None, sales_channel: str=None, leader: int=None):  # noqa: E501
         """ApiData - a model defined in Swagger
 
         :param cod_vendor: The cod_vendor of this ApiData.  # noqa: E501
         :type cod_vendor: str
-        :param identificationNumber: The identificationNumber of this ApiData.  # noqa: E501
-        :type identificationNumber: str
+        :param identification_number: The identification_number of this ApiData.  # noqa: E501
+        :type identification_number: str
         :param city: The city of this ApiData.  # noqa: E501
         :type city: str
         :param status: The status of this ApiData.  # noqa: E501
@@ -39,7 +39,7 @@ class ApiData(Model):
         """
         self.swagger_types = {
             'cod_vendor': str,
-            'identificationNumber': str,
+            'identification_number': str,
             'city': str,
             'status': str,
             'email': str,
@@ -51,7 +51,7 @@ class ApiData(Model):
 
         self.attribute_map = {
             'cod_vendor': 'codVendor',
-            'identificationNumber': 'identificationNumber',
+            'identification_number': 'identificationNumber',
             'city': 'city',
             'status': 'status',
             'email': 'email',
@@ -61,7 +61,7 @@ class ApiData(Model):
             'leader': 'leader'
         }
         self._cod_vendor = cod_vendor
-        self._identification_number = identificationNumber
+        self._identification_number = identification_number
         self._city = city
         self._status = status
         self._email = email
@@ -103,25 +103,25 @@ class ApiData(Model):
         self._cod_vendor = cod_vendor
 
     @property
-    def identificationNumber(self) -> str:
-        """Gets the identificationNumber of this ApiData.
+    def identification_number(self) -> str:
+        """Gets the identification_number of this ApiData.
 
 
-        :return: The identificationNumber of this ApiData.
+        :return: The identification_number of this ApiData.
         :rtype: str
         """
         return self._identification_number
 
-    @identificationNumber.setter
-    def identificationNumber(self, identificationNumber: str):
-        """Sets the identificationNumber of this ApiData.
+    @identification_number.setter
+    def identification_number(self, identification_number: str):
+        """Sets the identification_number of this ApiData.
 
 
-        :param identificationNumber: The identificationNumber of this ApiData.
-        :type identificationNumber: str
+        :param identification_number: The identification_number of this ApiData.
+        :type identification_number: str
         """
 
-        self._identification_number = identificationNumber
+        self._identification_number = identification_number
 
     @property
     def city(self) -> str:

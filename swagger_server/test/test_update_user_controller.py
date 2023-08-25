@@ -21,7 +21,7 @@ class TestUpdateUserController(BaseTestCase):
         body = RequestUpdateUser()
         response = self.client.open(
             '/users/{code_email}'.format(code_email='code_email_example'),
-            method='PUT',
+            method='PATCH',
             data=json.dumps(body),
             content_type='application/json')
         self.assert200(response,

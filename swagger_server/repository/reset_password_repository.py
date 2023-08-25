@@ -10,7 +10,7 @@ class ResetPasswordRepository(BaseRepository):
             return
         except Exception as ex:
             error = self.error_message_format(ex)
-            self.log.info(self.msg_log,internal_transaction_id, external_transaction_id, "change_password", __name__, error)
+            self.log.critical(self.msg_log,internal_transaction_id, external_transaction_id, "change_password", __name__, error)
             return error
         
     def get_user(self, code_email: str, internal_transaction_id: str, external_transaction_id: str):
@@ -19,5 +19,5 @@ class ResetPasswordRepository(BaseRepository):
             return user
         except Exception as ex:
             error = self.error_message_format(ex)
-            self.log.info(self.msg_log,internal_transaction_id, external_transaction_id, "get_user", __name__, error)
+            self.log.critical(self.msg_log,internal_transaction_id, external_transaction_id, "get_user", __name__, error)
             return error

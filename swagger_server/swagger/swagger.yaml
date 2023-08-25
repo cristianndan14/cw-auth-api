@@ -30,7 +30,32 @@ paths:
           description: Not found users yet
       x-openapi-router-controller: swagger_server.controllers.all_users_controller.AllUsersView
   /users/{code_email}:
-    put:
+    delete:
+      tags:
+      - Delete User
+      summary: Eliminar usuario.
+      description: Eliminar usuario.
+      operationId: delete_user
+      parameters:
+      - name: code_email
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          title: code_email
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDeleteUser'
+        "404":
+          description: User invalid
+      x-openapi-router-controller: swagger_server.controllers.delete_user_controller.DeleteUserView
+    patch:
       tags:
       - Update User
       summary: Actualizar usuario.
@@ -60,31 +85,6 @@ paths:
         "400":
           description: Bad Request
       x-openapi-router-controller: swagger_server.controllers.update_user_controller.UpdateUserView
-    delete:
-      tags:
-      - Delete User
-      summary: Eliminar usuario.
-      description: Eliminar usuario.
-      operationId: delete_user
-      parameters:
-      - name: code_email
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          title: code_email
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseDeleteUser'
-        "404":
-          description: User invalid
-      x-openapi-router-controller: swagger_server.controllers.delete_user_controller.DeleteUserView
   /checkUser:
     post:
       tags:
@@ -689,3 +689,4 @@ components:
         internalTransactionId: d290f1ee-6c54-4b01-90e6-d701748f0851
         externalTransactionId: fcea920f7412b5da7be0cf42b8c93759
         message: Usuario registrado exitosamente
+

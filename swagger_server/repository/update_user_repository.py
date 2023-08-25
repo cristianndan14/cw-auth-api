@@ -10,26 +10,18 @@ class UpdateUserRepository(BaseRepository):
             return user
         except Exception as ex:
             error = self.error_message_format(ex)
-            self.log.info(self.msg_log,internal_transaction_id, external_transaction_id, "get_user", __name__, error)
+            self.log.critical(self.msg_log,internal_transaction_id, external_transaction_id, "get_user", __name__, error)
             return error, 500
         
     def update_user(self, user: User, data: dict, internal_transaction_id: str, external_transaction_id: str):
         try:
-            user.status = data.get("status")
-            user.role_id = data.get("role_id")
-            user.name = data.get("name")
-            user.last_name = data.get("last_name")
-            user.city = data.get("city")
-            user.address = data.get("address")
-            user.email = data.get("email")
-            user.cellphone = data.get("cellphone")
-            user.department = data.get("department")
-            user.identification_number = data.get("identification_number")
-            user.password = data.get("password")
+            for field, value in data.items():
+                if value is not None and hasattr(user, field):
+                    setattr(user, field, value)
             
             user.save()
             return user.to_json()
         except Exception as ex:
             error = self.error_message_format(ex)
-            self.log.info(self.msg_log,internal_transaction_id, external_transaction_id, "update_user", __name__, error)
+            self.log.critical(self.msg_log,internal_transaction_id, external_transaction_id, "update_user", __name__, error)
             return error, 500

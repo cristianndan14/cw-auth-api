@@ -16,5 +16,5 @@ class DeleteUserRepository(BaseRepository):
                 return []
         except Exception as ex:
             error = self.error_message_format(ex)
-            self.log.info(self.msg_log, internal_transaction_id, "delete_user", __name__, error)
+            self.log.critical(self.msg_log, internal_transaction_id, "delete_user", __name__, error)
             return ""
