@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: auth-api
+  title: cw-auth-api
   description: |
     Authentication microservice
   version: 1.0.0
 servers:
-- url: /rest/auth-api/v1.0/
+- url: /rest/cw-auth-api/v1.0/
 paths:
   /allUsers:
     post:
