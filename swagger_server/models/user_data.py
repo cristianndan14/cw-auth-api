@@ -14,7 +14,7 @@ class UserData(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, code_email: str=None, status: bool=None, role_id: int=None, name: str=None, last_name: str=None, city: str=None, address: str=None, email: str=None, cellphone: str=None, department: str=None, identification_number: str=None, entry_date: str=None, password: str=None):  # noqa: E501
+    def __init__(self, code_email: str=None, status: bool=None, role_id: int=None, user_type: str=None, name: str=None, last_name: str=None, city: str=None, address: str=None, email: str=None, cellphone: str=None, department: str=None, identification_number: str=None, entry_date: str=None, password: str=None):  # noqa: E501
         """UserData - a model defined in Swagger
 
         :param code_email: The code_email of this UserData.  # noqa: E501
@@ -23,6 +23,8 @@ class UserData(Model):
         :type status: bool
         :param role_id: The role_id of this UserData.  # noqa: E501
         :type role_id: int
+        :param user_type: The user_type of this UserData.  # noqa: E501
+        :type user_type: str
         :param name: The name of this UserData.  # noqa: E501
         :type name: str
         :param last_name: The last_name of this UserData.  # noqa: E501
@@ -48,6 +50,7 @@ class UserData(Model):
             'code_email': str,
             'status': bool,
             'role_id': int,
+            'user_type': str,
             'name': str,
             'last_name': str,
             'city': str,
@@ -64,6 +67,7 @@ class UserData(Model):
             'code_email': 'code_email',
             'status': 'status',
             'role_id': 'role_id',
+            'user_type': 'user_type',
             'name': 'name',
             'last_name': 'last_name',
             'city': 'city',
@@ -78,6 +82,7 @@ class UserData(Model):
         self._code_email = code_email
         self._status = status
         self._role_id = role_id
+        self._user_type = user_type
         self._name = name
         self._last_name = last_name
         self._city = city
@@ -162,6 +167,27 @@ class UserData(Model):
         """
 
         self._role_id = role_id
+
+    @property
+    def user_type(self) -> str:
+        """Gets the user_type of this UserData.
+
+
+        :return: The user_type of this UserData.
+        :rtype: str
+        """
+        return self._user_type
+
+    @user_type.setter
+    def user_type(self, user_type: str):
+        """Sets the user_type of this UserData.
+
+
+        :param user_type: The user_type of this UserData.
+        :type user_type: str
+        """
+
+        self._user_type = user_type
 
     @property
     def name(self) -> str:

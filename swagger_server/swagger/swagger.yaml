@@ -425,6 +425,9 @@ components:
         role_id:
           type: integer
           example: 1
+        user_type:
+          type: string
+          example: Natural
         name:
           type: string
           example: Jorge
@@ -468,6 +471,7 @@ components:
         cellphone: "3592211658"
         department: ventas
         email: j.alcaraz@xtrim.ec
+        user_type: Natural
         status: true
     ResponseDeleteUser:
       properties:

@@ -9,6 +9,7 @@ class User(db.Model):
     code_email = db.Column(db.String(100), index=True)
     status = db.Column(db.Boolean)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'))
+    user_type = db.Column(db.String(50))
     name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     city = db.Column(db.String(100))
@@ -28,6 +29,7 @@ class User(db.Model):
         self.code_email = payload.get('code_email')
         self.status = payload.get('status')
         self.role_id = payload.get('role_id')
+        self.user_type = payload.get('user_type')
         self.name = payload.get('name')
         self.last_name = payload.get('last_name')
         self.city = payload.get('city')
@@ -55,6 +57,7 @@ class User(db.Model):
             "code_email": self.code_email,
             "status": self.status,
             "role": role_data,
+            "user_type": self.user_type,
             "name": self.name,
             "last_name": self.last_name,
             "city": self.city,
