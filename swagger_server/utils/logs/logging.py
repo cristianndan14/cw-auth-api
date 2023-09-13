@@ -15,7 +15,7 @@ def log():
     logger.setLevel(logging.INFO)
     
     # Verificar si el directorio de registro existe, si no, créalo
-    log_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'logs')
+    log_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'logs')
     os.makedirs(log_dir, exist_ok=True)
     
     rthandler = RotatingFileHandler(

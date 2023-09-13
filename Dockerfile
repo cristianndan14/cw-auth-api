@@ -1,3 +1,4 @@
+# Utiliza la imagen base de Ubuntu 22.04
 FROM ubuntu:22.04
 
 
@@ -15,8 +16,15 @@ RUN apt-get update && \
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+# Copia el archivo requirements.txt y realiza la instalación de dependencias
 COPY requirements.txt /usr/src/app/
 RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copia el archivo access.json desde el directorio swagger_server/config en el contenedor
+COPY swagger_server/config/access.json /usr/src/app/access.json
+
+# Establece la variable de entorno ENVIRONMENT en "production"
+ENV ENVIRONMENT=PROD
 
 RUN mkdir -p /usr/src/app/logs
 COPY . /usr/src/app

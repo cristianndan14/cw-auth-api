@@ -1,14 +1,25 @@
 {
-    "MODE": "PROD",
     "SALT": "$2b$12$DmpeAC/LMmc8UVA2ty5Uou",
-    "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://Nextgen:Ti$Xtrim2023@#ext@192.168.59.55:3306/xtrim_contratos",
-    "SQLALCHEMY_ENGINE_OPTIONS": {
-        "echo": false,
-        "pool_recycle": 300,
-        "pool_pre_ping": true
+    "DB_MODE": {
+        "DEV": {
+            "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://dba:c2VjcmV0Cg==@3.136.234.203:3306/xtrim",
+            "SQLALCHEMY_ENGINE_OPTIONS": {
+                "echo": false,
+                "pool_recycle": 300,
+                "pool_pre_ping": true
+            }
+        },
+        "PROD": {
+            "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://Nextgen:Ti%24Xtrim2023%40%23ext@192.168.59.55:3306/xtrim_contratos",
+            "SQLALCHEMY_ENGINE_OPTIONS": {
+                "echo": false,
+                "pool_recycle": 300,
+                "pool_pre_ping": true
+            }
+        }
     },
     "SERVICES": {
-        "CEDULA_VENTAS":{
+        "CEDULA_VENTAS": {
             "URL": "https://gestion-autoservicio-xtrim.intelnexo.com/back_celula_prod/planform_integrate",
             "HEADERS": {
                 "xtrim-api-key": "MnpoJwjCIK3XYDtWbjH=x/GsG6pU2CkEXDSDl-oo6sq7CJ7f6ST80V3EjH!puc2p1VVfp-4EZITH313we5mCR=wWLFA9v====W7cHHFngKUE82l/syhoqqNblg==feORuKS9!?CGCs=6G3jo3rWBj63DB1g7uMDgFTsDaX2rCaAdb/QI?v7Kbk5dlMtwD/ci066ltS4jqRTsug0j6XLPX?j!MQ4XT73!JDWIMT4oPDUEZkwgjzrdijAzAiwYhxs",
@@ -35,7 +46,10 @@
                         "attachment": [],
                         "bcc": [],
                         "cc": [],
-                        "from": {"email": "dvillamar@xtrim.com.ec", "name": "Recuperacion de cuenta"},
+                        "from": {
+                            "email": "dvillamar@xtrim.com.ec",
+                            "name": "Recuperacion de cuenta"
+                        },
                         "subject": "Token de recuperacion de cuenta",
                         "to": "EMAIL"
                     },
@@ -43,8 +57,14 @@
                     "template": {
                         "id": "11614",
                         "variables": [
-                            {"name": "fieldstr02", "value": "Body"},
-                            {"name": "fieldstr01", "value": "Titulo"}
+                            {
+                                "name": "fieldstr02",
+                                "value": "Body"
+                            },
+                            {
+                                "name": "fieldstr01",
+                                "value": "Titulo"
+                            }
                         ]
                     }
                 },
