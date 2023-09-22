@@ -29,7 +29,7 @@ class SignupUseCase:
             
             payload = {
                 "code_email": request.get('code_email'),
-                "status": 1 if request_api.get("status") == "ACTIVO" else None,
+                "status": 1 if request_api.get("status") == "ACTIVO" else 0,
                 "role_id": 1,
                 "name": request.get('name'),
                 "last_name": request.get('last_name'),
